@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEO CRM COMMAND CENTRE | Banking Value Realisation</title>
+  <meta name="description" content="Executive Banking Value Realisation Command Centre for RFP Demonstration - 4 Focused Tabs: Overview, Growth, Customer & Service, Productivity & Value.">
+  
+  <!-- Modern Executive Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- 1. Global Executive Header -->
+    <header id="app-header" class="app-header"></header>
+
+    <!-- 2. Global Sticky Filter Bar -->
+    <nav id="filter-bar" class="filter-bar"></nav>
+
+    <!-- 3. Focused 4-Tab Navigation Strip -->
+    <div id="tab-navigation-strip" class="tab-navigation-strip"></div>
+
+    <!-- 4. Main Dashboard Canvas -->
+    <main id="main-content-canvas" class="main-content-canvas"></main>
+  </div>
+
+  <!-- KPI Tooltip Popup -->
+  <div id="kpi-tooltip-popup" class="kpi-tooltip-popup"></div>
+
+  <!-- Hierarchy Drill-Down Modal -->
+  <div id="drilldown-modal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2>🔍 Executive Hierarchy Drill-Down Explorer</h2>
+        <button class="modal-close-btn" onclick="window.CXO_DRILLDOWN.close()">&times;</button>
+      </div>
+      <div class="modal-body" id="drilldown-modal-body"></div>
+      <div class="modal-footer">
+        <button class="action-btn" onclick="window.CXO_DRILLDOWN.close()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- What-If Value Realisation Simulator Modal -->
+  <div id="simulator-modal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2>🧮 What-If Value Realisation Simulator</h2>
+        <button class="modal-close-btn" onclick="window.CXO_SIMULATOR.close()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Model the financial impact of advancing CRM adoption, sales cycle compression, and automated processing across the bank.
+        </p>
+
+        <div class="simulator-controls">
+          <div class="slider-group">
+            <label>
+              <span>CRM Adoption Uplift</span>
+              <strong id="sim-val-adoption" style="color: var(--brand-accent);">+5%</strong>
+            </label>
+            <input type="range" id="sim-slider-adoption" min="1" max="15" value="5" step="1" oninput="window.CXO_SIMULATOR.recalculate()">
+            <div style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem;">Impacts active user logging & RM capacity</div>
+          </div>
+
+          <div class="slider-group">
+            <label>
+              <span>Sales Cycle Compression</span>
+              <strong id="sim-val-cycle" style="color: #059669;">-15%</strong>
+            </label>
+            <input type="range" id="sim-slider-cycle" min="5" max="35" value="15" step="1" oninput="window.CXO_SIMULATOR.recalculate()">
+            <div style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem;">Accelerates deal velocity into current period</div>
+          </div>
+
+          <div class="slider-group">
+            <label>
+              <span>STP Automation Lift</span>
+              <strong id="sim-val-stp" style="color: #10b981;">+10%</strong>
+            </label>
+            <input type="range" id="sim-slider-stp" min="2" max="25" value="10" step="1" oninput="window.CXO_SIMULATOR.recalculate()">
+            <div style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem;">Eliminates manual back-office processing cost</div>
+          </div>
+        </div>
+
+        <div class="sim-output-banner">
+          <div class="sim-output-card">
+            <div class="sim-num" id="sim-out-rev">+₹42.5 Cr</div>
+            <div class="sim-desc">Projected Revenue Uplift</div>
+          </div>
+          <div class="sim-output-card">
+            <div class="sim-num" id="sim-out-cost">+₹8.4 Cr</div>
+            <div class="sim-desc">Annual Cost-to-Serve Savings</div>
+          </div>
+          <div class="sim-output-card">
+            <div class="sim-num" id="sim-out-total">+₹50.9 Cr</div>
+            <div class="sim-desc">Total Projected Value Creation</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn" onclick="window.CXO_SIMULATOR.close()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive AI Brief Modal -->
+  <div id="brief-modal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2>✨ Executive AI Briefing Generator</h2>
+        <button class="modal-close-btn" onclick="window.CXO_HEADER.closeBriefModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="brief-modal-body"></div>
+      <div class="modal-footer">
+        <button class="action-btn primary" onclick="window.print()">Print Briefing</button>
+        <button class="action-btn" onclick="window.CXO_HEADER.closeBriefModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts in dependency order -->
+  <script src="js/data/dataset.js"></script>
+  <script src="js/data/data-engine.js"></script>
+  <script src="js/components/kpi-card.js"></script>
+  <script src="js/components/chart-engine.js"></script>
+  <script src="js/components/drilldown.js"></script>
+  <script src="js/components/simulator.js"></script>
+  <script src="js/components/header.js"></script>
+  <script src="js/tabs/overview.js"></script>
+  <script src="js/tabs/growth.js"></script>
+  <script src="js/tabs/customer.js"></script>
+  <script src="js/tabs/value.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

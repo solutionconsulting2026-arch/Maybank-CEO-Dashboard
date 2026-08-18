@@ -1,0 +1,187 @@
+/* ==========================================================================
+   CEO / CXO COMMAND CENTRE - DESIGN TOKENS & CSS SYSTEM
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Executive Light (Primary) */
+  --bg-app: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-subtle: #f1f5f9;
+  --bg-surface-hover: #f8fafc;
+
+  /* Typography Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --text-inverse: #ffffff;
+  --text-brand: #1e40af;
+
+  /* Brand Accents */
+  --brand-primary: #1e3a8a;       /* Deep Executive Navy */
+  --brand-primary-light: #eff6ff;
+  --brand-accent: #2563eb;        /* Royal Blue */
+  --brand-accent-hover: #1d4ed8;
+  --brand-indigo: #4338ca;
+  --brand-cyan: #0284c7;
+
+  /* Executive Status Semantic Palette */
+  --status-ontrack-bg: #ecfdf5;
+  --status-ontrack-border: #a7f3d0;
+  --status-ontrack-text: #065f46;
+  --status-ontrack-solid: #059669;
+
+  --status-watch-bg: #fffbeb;
+  --status-watch-border: #fde68a;
+  --status-watch-text: #92400e;
+  --status-watch-solid: #d97706;
+
+  --status-atrisk-bg: #fef2f2;
+  --status-atrisk-border: #fecaca;
+  --status-atrisk-text: #991b1b;
+  --status-atrisk-solid: #dc2626;
+
+  --status-neutral-bg: #f3f4f6;
+  --status-neutral-border: #e5e7eb;
+  --status-neutral-text: #4b5563;
+
+  /* Borders & Dividers */
+  --border-subtle: #f1f5f9;
+  --border-default: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-focus: #3b82f6;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout Dimensions */
+  --header-height: 72px;
+  --filterbar-height: 56px;
+  --tabs-height: 52px;
+  --max-content-width: 1680px;
+}
+
+/* Dark Theme Support for Executive Boardroom Mode */
+[data-theme="dark"] {
+  --bg-app: #0b0f19;
+  --bg-surface: #111827;
+  --bg-surface-elevated: #1e293b;
+  --bg-surface-subtle: #1e293b;
+  --bg-surface-hover: #26334d;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #64748b;
+  --text-inverse: #0f172a;
+  --text-brand: #60a5fa;
+
+  --brand-primary: #3b82f6;
+  --brand-primary-light: #1e293b;
+  --brand-accent: #60a5fa;
+
+  --status-ontrack-bg: rgba(6, 95, 70, 0.2);
+  --status-ontrack-border: rgba(167, 243, 208, 0.2);
+  --status-ontrack-text: #6ee7b7;
+  --status-ontrack-solid: #10b981;
+
+  --status-watch-bg: rgba(146, 64, 14, 0.2);
+  --status-watch-border: rgba(253, 230, 138, 0.2);
+  --status-watch-text: #fcd34d;
+  --status-watch-solid: #f59e0b;
+
+  --status-atrisk-bg: rgba(153, 27, 27, 0.2);
+  --status-atrisk-border: rgba(254, 202, 202, 0.2);
+  --status-atrisk-text: #fca5a5;
+  --status-atrisk-solid: #ef4444;
+
+  --border-subtle: #1e293b;
+  --border-default: #334155;
+  --border-strong: #475569;
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+}
+
+/* Base Reset & Global Typography */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  color: var(--brand-accent);
+  text-decoration: none;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-surface-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}

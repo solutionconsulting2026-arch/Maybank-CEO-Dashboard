@@ -1,0 +1,150 @@
+/* ==========================================================================
+   CEO / CXO COMMAND CENTRE - RESPONSIVE & PRESENTATION STYLES
+   ========================================================================== */
+
+/* Large Desktop / Presentation Wall (> 1440px) */
+@media (min-width: 1441px) {
+  .main-content-canvas {
+    padding: 2rem 2.5rem 4rem 2.5rem;
+  }
+}
+
+/* Standard Laptop / Desktop (1024px - 1440px) */
+@media (max-width: 1440px) {
+  .grid-cards-8 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .grid-cards-6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-cards-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Small Laptop / Tablet Landscape (768px - 1023px) */
+@media (max-width: 1023px) {
+  .app-header {
+    padding: 0 1.25rem;
+  }
+
+  .filter-bar {
+    padding: 0.6rem 1.25rem;
+  }
+
+  .tab-navigation-strip {
+    padding: 0 1.25rem;
+  }
+
+  .main-content-canvas {
+    padding: 1.25rem 1.25rem 2.5rem 1.25rem;
+  }
+
+  .grid-cards-8,
+  .grid-cards-6,
+  .grid-cards-4,
+  .grid-cards-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-2col,
+  .grid-3col,
+  .grid-1-2col,
+  .grid-2-1col {
+    grid-template-columns: 1fr;
+  }
+
+  .health-score-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .health-score-breakdown {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+
+  .alerts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-steps-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .simulator-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .sim-output-banner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Presentation / Boardroom Mode */
+body.presentation-mode {
+  font-size: 16px;
+}
+
+body.presentation-mode .app-header {
+  height: 80px;
+  background: #0f172a;
+  color: white;
+}
+
+body.presentation-mode .brand-titles h1 {
+  color: white;
+  font-size: 1.4rem;
+}
+
+body.presentation-mode .brand-titles p {
+  color: #94a3b8;
+}
+
+body.presentation-mode .kpi-value {
+  font-size: 2.1rem;
+}
+
+body.presentation-mode .main-content-canvas {
+  max-width: 1920px;
+  padding: 2.5rem 3rem;
+}
+
+/* Print Styles for Executive Board Pack Export */
+@media print {
+  .app-header,
+  .filter-bar,
+  .tab-navigation-strip,
+  .modal-backdrop,
+  .header-actions {
+    display: none !important;
+  }
+
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .main-content-canvas {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .tab-pane {
+    display: block !important;
+    opacity: 1 !important;
+    page-break-after: always;
+  }
+
+  .surface-card,
+  .kpi-card,
+  .health-score-container {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+}
