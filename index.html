@@ -4,36 +4,815 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CEO CRM COMMAND CENTRE | Banking Value Realisation</title>
-  <meta name="description" content="Executive Banking Value Realisation Command Centre for RFP Demonstration - 4 Focused Tabs: Overview, Growth, Customer & Service, Productivity & Value.">
+  <meta name="description" content="Executive Banking Value Realisation Command Centre for RFP Demonstration - 4 Focused Tabs: Overview, Growth, Customer & Service, Productivity & Value. Single All-In-One File.">
   
   <!-- Modern Executive Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   
-  <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/design-tokens.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & CSS SYSTEM
+       ========================================================================== */
+    :root {
+      --bg-app: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #ffffff;
+      --bg-surface-subtle: #f1f5f9;
+      --bg-surface-hover: #f8fafc;
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #94a3b8;
+      --text-inverse: #ffffff;
+      --text-brand: #1e40af;
+
+      --brand-primary: #1e3a8a;
+      --brand-primary-light: #eff6ff;
+      --brand-accent: #2563eb;
+      --brand-accent-hover: #1d4ed8;
+
+      --status-ontrack-bg: #ecfdf5;
+      --status-ontrack-border: #a7f3d0;
+      --status-ontrack-text: #065f46;
+      --status-ontrack-solid: #059669;
+
+      --status-watch-bg: #fffbeb;
+      --status-watch-border: #fde68a;
+      --status-watch-text: #92400e;
+      --status-watch-solid: #d97706;
+
+      --status-atrisk-bg: #fef2f2;
+      --status-atrisk-border: #fecaca;
+      --status-atrisk-text: #991b1b;
+      --status-atrisk-solid: #dc2626;
+
+      --border-subtle: #f1f5f9;
+      --border-default: #e2e8f0;
+      --border-strong: #cbd5e1;
+
+      --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+      --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1);
+
+      --radius-xs: 4px;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-full: 9999px;
+
+      --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --header-height: 70px;
+      --max-content-width: 1680px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg-app);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    button, select {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ==========================================================================
+       2. LAYOUT & STRUCTURE
+       ========================================================================== */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .app-header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+      padding: 0 2rem;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo-badge {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.15rem;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+
+    .brand-titles h1 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-titles p {
+      font-size: 0.775rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .rfp-pill {
+      font-size: 0.675rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .rfp-pill::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #0284c7;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      transition: all 150ms ease;
+    }
+
+    .action-btn:hover {
+      background: var(--bg-surface-subtle);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    .action-btn.primary {
+      background: var(--brand-primary);
+      color: white;
+      border-color: var(--brand-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .action-btn.primary:hover {
+      background: #172554;
+    }
+
+    .filter-bar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+      padding: 0.55rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: var(--header-height);
+      z-index: 90;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+    }
+
+    .period-pill-group {
+      display: inline-flex;
+      background: var(--bg-surface-subtle);
+      padding: 2px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-default);
+    }
+
+    .period-pill {
+      padding: 0.3rem 0.75rem;
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      transition: all 150ms ease;
+    }
+
+    .period-pill.active {
+      background: var(--bg-surface);
+      color: var(--brand-primary);
+      font-weight: 700;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .filter-select {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    .filter-meta {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+
+    .tab-navigation-strip {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+      padding: 0 2rem;
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+      position: sticky;
+      top: calc(var(--header-height) + 49px);
+      z-index: 80;
+    }
+
+    .nav-tab-btn {
+      padding: 0.8rem 1.15rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 150ms ease;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-surface-hover);
+    }
+
+    .nav-tab-btn.active {
+      color: var(--brand-primary);
+      border-bottom-color: var(--brand-accent);
+      font-weight: 700;
+    }
+
+    .tab-badge {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-full);
+      background: var(--brand-primary-light);
+      color: var(--brand-primary);
+      font-weight: 700;
+    }
+
+    .main-content-canvas {
+      flex: 1;
+      max-width: var(--max-content-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 3rem 2rem;
+    }
+
+    .tab-pane {
+      display: none;
+      opacity: 0;
+      animation: fadeIn 200ms ease forwards;
+    }
+
+    .tab-pane.active {
+      display: block;
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Layout Grids */
+    .grid-cards-8 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .grid-cards-6 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .grid-1-2col {
+      display: grid;
+      grid-template-columns: 1.1fr 2fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ==========================================================================
+       3. COMPONENTS & CARDS
+       ========================================================================== */
+    .surface-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .card-title-wrap h3 {
+      font-size: 0.925rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .card-title-wrap p {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      margin-top: 0.15rem;
+    }
+
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+      cursor: pointer;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #cbd5e1;
+    }
+
+    .kpi-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    .kpi-title {
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .kpi-info-trigger {
+      color: var(--text-tertiary);
+      font-size: 0.75rem;
+      cursor: help;
+      margin-left: 0.35rem;
+    }
+
+    .kpi-main-val-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    .kpi-value {
+      font-family: var(--font-heading);
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-target-tag {
+      font-size: 0.725rem;
+      color: var(--text-tertiary);
+    }
+
+    .kpi-target-val {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .kpi-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.4rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.725rem;
+    }
+
+    .kpi-variance {
+      font-weight: 700;
+    }
+
+    .kpi-variance.positive { color: var(--status-ontrack-solid); }
+    .kpi-variance.negative { color: var(--status-atrisk-solid); }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      font-size: 0.675rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-badge.ontrack {
+      background: var(--status-ontrack-bg);
+      color: var(--status-ontrack-text);
+      border: 1px solid var(--status-ontrack-border);
+    }
+    .status-badge.ontrack::before { background: var(--status-ontrack-solid); }
+
+    .status-badge.watch {
+      background: var(--status-watch-bg);
+      color: var(--status-watch-text);
+      border: 1px solid var(--status-watch-border);
+    }
+    .status-badge.watch::before { background: var(--status-watch-solid); }
+
+    .status-badge.atrisk {
+      background: var(--status-atrisk-bg);
+      color: var(--status-atrisk-text);
+      border: 1px solid var(--status-atrisk-border);
+    }
+    .status-badge.atrisk::before { background: var(--status-atrisk-solid); }
+
+    .dimension-subcard {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      text-align: center;
+    }
+
+    .dimension-name {
+      font-size: 0.725rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .dimension-score {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .progress-mini-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .progress-mini-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width 0.5s ease;
+    }
+
+    .alerts-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .alert-card {
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-default);
+      background: var(--bg-app);
+    }
+
+    .alert-card.high { border-left: 4px solid var(--status-atrisk-solid); background: var(--status-atrisk-bg); }
+    .alert-card.medium { border-left: 4px solid var(--status-watch-solid); background: var(--status-watch-bg); }
+
+    .alert-bu-tag {
+      background: var(--bg-surface);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border-default);
+      font-size: 0.675rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .scorecard-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .scorecard-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8rem;
+    }
+
+    .scorecard-table th {
+      background: var(--bg-surface-subtle);
+      padding: 0.75rem 0.9rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .scorecard-table td {
+      padding: 0.8rem 0.9rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+
+    .scorecard-table tbody tr:hover {
+      background-color: var(--bg-surface-hover);
+      cursor: pointer;
+    }
+
+    .scorecard-bu-name {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-weight: 700;
+    }
+
+    .funnel-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .funnel-stage-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .funnel-stage-meta {
+      width: 130px;
+      flex-shrink: 0;
+    }
+
+    .funnel-stage-name {
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .funnel-stage-count {
+      font-size: 0.725rem;
+      color: var(--text-tertiary);
+    }
+
+    .funnel-bar-track {
+      flex: 1;
+      height: 26px;
+      background: var(--bg-surface-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .funnel-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      padding-left: 0.65rem;
+      color: white;
+      font-weight: 700;
+      font-size: 0.725rem;
+      transition: width 0.5s ease;
+    }
+
+    .funnel-conversion-rate {
+      width: 75px;
+      text-align: right;
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.active { display: flex; }
+
+    .modal-dialog {
+      background: var(--bg-surface);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-default);
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 850px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface-subtle);
+    }
+
+    .modal-header h2 { font-size: 1.1rem; font-weight: 800; }
+    .modal-close-btn { font-size: 1.35rem; color: var(--text-tertiary); }
+    .modal-close-btn:hover { color: var(--text-primary); }
+    .modal-body { padding: 1.5rem; overflow-y: auto; }
+    .modal-footer { padding: 0.85rem 1.5rem; border-top: 1px solid var(--border-default); display: flex; justify-content: flex-end; background: var(--bg-surface-subtle); }
+
+    .kpi-tooltip-popup {
+      position: absolute;
+      z-index: 500;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      width: 270px;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .kpi-tooltip-popup.active { display: block; }
+    .tooltip-title { font-weight: 700; color: #60a5fa; margin-bottom: 0.3rem; border-bottom: 1px solid #334155; padding-bottom: 0.2rem; }
+    .tooltip-row { margin-bottom: 0.25rem; }
+    .tooltip-row strong { color: #cbd5e1; }
+
+    .simulator-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .slider-group label { display: flex; justify-content: space-between; font-weight: 600; font-size: 0.8rem; margin-bottom: 0.4rem; }
+    .slider-group input[type="range"] { width: 100%; accent-color: var(--brand-accent); }
+
+    .sim-output-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .sim-output-card .sim-num { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; }
+    .sim-output-card .sim-desc { font-size: 0.725rem; opacity: 0.9; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .grid-cards-8, .grid-cards-6 { grid-template-columns: repeat(2, 1fr); }
+      .grid-2col, .grid-3col, .grid-1-2col { grid-template-columns: 1fr; }
+      .simulator-controls, .sim-output-banner { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
   <div class="app-container">
-    <!-- 1. Global Executive Header -->
     <header id="app-header" class="app-header"></header>
-
-    <!-- 2. Global Sticky Filter Bar -->
     <nav id="filter-bar" class="filter-bar"></nav>
-
-    <!-- 3. Focused 4-Tab Navigation Strip -->
     <div id="tab-navigation-strip" class="tab-navigation-strip"></div>
-
-    <!-- 4. Main Dashboard Canvas -->
     <main id="main-content-canvas" class="main-content-canvas"></main>
   </div>
 
-  <!-- KPI Tooltip Popup -->
   <div id="kpi-tooltip-popup" class="kpi-tooltip-popup"></div>
 
   <!-- Hierarchy Drill-Down Modal -->
@@ -50,7 +829,7 @@
     </div>
   </div>
 
-  <!-- What-If Value Realisation Simulator Modal -->
+  <!-- What-If Simulator Modal -->
   <div id="simulator-modal" class="modal-backdrop">
     <div class="modal-dialog">
       <div class="modal-header">
@@ -58,52 +837,27 @@
         <button class="modal-close-btn" onclick="window.CXO_SIMULATOR.close()">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
           Model the financial impact of advancing CRM adoption, sales cycle compression, and automated processing across the bank.
         </p>
-
         <div class="simulator-controls">
           <div class="slider-group">
-            <label>
-              <span>CRM Adoption Uplift</span>
-              <strong id="sim-val-adoption" style="color: var(--brand-accent);">+5%</strong>
-            </label>
+            <label><span>CRM Adoption Uplift</span><strong id="sim-val-adoption" style="color: var(--brand-accent);">+5%</strong></label>
             <input type="range" id="sim-slider-adoption" min="1" max="15" value="5" step="1" oninput="window.CXO_SIMULATOR.recalculate()">
-            <div style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem;">Impacts active user logging & RM capacity</div>
           </div>
-
           <div class="slider-group">
-            <label>
-              <span>Sales Cycle Compression</span>
-              <strong id="sim-val-cycle" style="color: #059669;">-15%</strong>
-            </label>
+            <label><span>Sales Cycle Compression</span><strong id="sim-val-cycle" style="color: #059669;">-15%</strong></label>
             <input type="range" id="sim-slider-cycle" min="5" max="35" value="15" step="1" oninput="window.CXO_SIMULATOR.recalculate()">
-            <div style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem;">Accelerates deal velocity into current period</div>
           </div>
-
           <div class="slider-group">
-            <label>
-              <span>STP Automation Lift</span>
-              <strong id="sim-val-stp" style="color: #10b981;">+10%</strong>
-            </label>
+            <label><span>STP Automation Lift</span><strong id="sim-val-stp" style="color: #10b981;">+10%</strong></label>
             <input type="range" id="sim-slider-stp" min="2" max="25" value="10" step="1" oninput="window.CXO_SIMULATOR.recalculate()">
-            <div style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem;">Eliminates manual back-office processing cost</div>
           </div>
         </div>
-
         <div class="sim-output-banner">
-          <div class="sim-output-card">
-            <div class="sim-num" id="sim-out-rev">+₹42.5 Cr</div>
-            <div class="sim-desc">Projected Revenue Uplift</div>
-          </div>
-          <div class="sim-output-card">
-            <div class="sim-num" id="sim-out-cost">+₹8.4 Cr</div>
-            <div class="sim-desc">Annual Cost-to-Serve Savings</div>
-          </div>
-          <div class="sim-output-card">
-            <div class="sim-num" id="sim-out-total">+₹50.9 Cr</div>
-            <div class="sim-desc">Total Projected Value Creation</div>
-          </div>
+          <div class="sim-output-card"><div class="sim-num" id="sim-out-rev">+₹42.5 Cr</div><div class="sim-desc">Projected Revenue Uplift</div></div>
+          <div class="sim-output-card"><div class="sim-num" id="sim-out-cost">+₹8.4 Cr</div><div class="sim-desc">Annual Cost Savings</div></div>
+          <div class="sim-output-card"><div class="sim-num" id="sim-out-total">+₹50.9 Cr</div><div class="sim-desc">Total Value Creation</div></div>
         </div>
       </div>
       <div class="modal-footer">
@@ -127,19 +881,762 @@
     </div>
   </div>
 
-  <!-- Scripts in dependency order -->
-  <script src="js/data/dataset.js"></script>
-  <script src="js/data/data-engine.js"></script>
-  <script src="js/components/kpi-card.js"></script>
-  <script src="js/components/chart-engine.js"></script>
-  <script src="js/components/drilldown.js"></script>
-  <script src="js/components/simulator.js"></script>
-  <script src="js/components/header.js"></script>
-  <script src="js/tabs/overview.js"></script>
-  <script src="js/tabs/growth.js"></script>
-  <script src="js/tabs/customer.js"></script>
-  <script src="js/tabs/value.js"></script>
-  <script src="js/app.js"></script>
+  <!-- ==========================================================================
+       ALL-IN-ONE JAVASCRIPT ENGINE & TAB MODULES
+       ========================================================================== -->
+  <script>
+    /* 1. DATASET */
+    window.CXO_DATASET = {
+      businessUnits: [
+        { id: "all", name: "All Business Units", code: "ALL" },
+        { id: "retail", name: "Retail Banking", code: "RB" },
+        { id: "sme", name: "SME & Commercial", code: "SME" },
+        { id: "corporate", name: "Corporate Banking", code: "CB" },
+        { id: "wealth", name: "Wealth Management", code: "WM" },
+        { id: "service", name: "Customer Service & Ops", code: "CSO" }
+      ],
+      regions: [
+        { id: "all", name: "National / All Regions" },
+        { id: "north", name: "North Region" },
+        { id: "west", name: "West Region" },
+        { id: "south", name: "South Region" },
+        { id: "east", name: "East Region" }
+      ],
+      periodData: {
+        YTD: {
+          retail: { revenueActual: 184.5, revenueTarget: 172.0, revenueBaseline: 148.0, revenuePrevYear: 162.0, pipelineValue: 340.0, totalLeads: 280000, qualifiedLeads: 117600, totalOpportunities: 40600, wonOpportunities: 14560, retentionRate: 93.8, npsScore: 39, serviceCasesCreated: 420000, serviceCasesResolved: 407400, serviceCasesFCR: 309624, avgResolutionTimeHours: 3.8, slaComplianceRate: 96.5, costToServePerCase: 42.0, totalCrmUsers: 3400, activeCrmUsers: 2958, dauUsers: 2514, mauUsers: 2958, rmUsers: 1100, salesCycleDays: 14.5, campaignLeads: 84000, campaignConversions: 15456, campaignRoi: 12.4 },
+          sme: { revenueActual: 118.2, revenueTarget: 108.0, revenueBaseline: 88.0, revenuePrevYear: 99.5, pipelineValue: 285.0, totalLeads: 48000, qualifiedLeads: 20160, totalOpportunities: 6960, wonOpportunities: 2496, retentionRate: 95.4, npsScore: 42, serviceCasesCreated: 85000, serviceCasesResolved: 82450, serviceCasesFCR: 64311, avgResolutionTimeHours: 5.4, slaComplianceRate: 97.2, costToServePerCase: 125.0, totalCrmUsers: 1450, activeCrmUsers: 1262, dauUsers: 1072, mauUsers: 1262, rmUsers: 640, salesCycleDays: 22.0, campaignLeads: 14400, campaignConversions: 2592, campaignRoi: 14.8 },
+          corporate: { revenueActual: 112.5, revenueTarget: 118.0, revenueBaseline: 98.0, revenuePrevYear: 104.0, pipelineValue: 390.0, totalLeads: 6200, qualifiedLeads: 2604, totalOpportunities: 899, wonOpportunities: 323, retentionRate: 98.2, npsScore: 48, serviceCasesCreated: 18000, serviceCasesResolved: 17640, serviceCasesFCR: 14112, avgResolutionTimeHours: 11.2, slaComplianceRate: 98.4, costToServePerCase: 450.0, totalCrmUsers: 620, activeCrmUsers: 540, dauUsers: 459, mauUsers: 540, rmUsers: 220, salesCycleDays: 56.0, campaignLeads: 1860, campaignConversions: 353, campaignRoi: 16.5 },
+          wealth: { revenueActual: 51.8, revenueTarget: 46.0, revenueBaseline: 36.0, revenuePrevYear: 41.5, pipelineValue: 165.0, totalLeads: 18000, qualifiedLeads: 7560, totalOpportunities: 2610, wonOpportunities: 936, retentionRate: 97.4, npsScore: 52, serviceCasesCreated: 26000, serviceCasesResolved: 25480, serviceCasesFCR: 21658, avgResolutionTimeHours: 2.9, slaComplianceRate: 98.9, costToServePerCase: 180.0, totalCrmUsers: 480, activeCrmUsers: 442, dauUsers: 398, mauUsers: 442, rmUsers: 260, salesCycleDays: 24.0, campaignLeads: 5400, campaignConversions: 1026, campaignRoi: 15.2 },
+          service: { revenueActual: 18.0, revenueTarget: 16.0, revenueBaseline: 12.0, revenuePrevYear: 14.0, pipelineValue: 40.0, totalLeads: 12000, qualifiedLeads: 5040, totalOpportunities: 1740, wonOpportunities: 624, retentionRate: 95.0, npsScore: 40, serviceCasesCreated: 310000, serviceCasesResolved: 303800, serviceCasesFCR: 236964, avgResolutionTimeHours: 3.1, slaComplianceRate: 97.8, costToServePerCase: 35.0, totalCrmUsers: 2100, activeCrmUsers: 1848, dauUsers: 1570, mauUsers: 1848, rmUsers: 280, salesCycleDays: 12.0, campaignLeads: 3600, campaignConversions: 576, campaignRoi: 9.8 }
+        },
+        QTD: {
+          retail: { revenueActual: 63.8, revenueTarget: 59.0, revenueBaseline: 51.0, revenuePrevYear: 56.0, pipelineValue: 340.0, totalLeads: 98000, qualifiedLeads: 41160, totalOpportunities: 14210, wonOpportunities: 5096, retentionRate: 94.0, npsScore: 40, serviceCasesCreated: 142000, serviceCasesResolved: 137740, serviceCasesFCR: 104682, avgResolutionTimeHours: 3.7, slaComplianceRate: 96.8, costToServePerCase: 41.5, totalCrmUsers: 3400, activeCrmUsers: 2980, dauUsers: 2540, mauUsers: 2980, rmUsers: 1100, salesCycleDays: 14.0, campaignLeads: 29400, campaignConversions: 5410, campaignRoi: 12.6 },
+          sme: { revenueActual: 41.2, revenueTarget: 37.5, revenueBaseline: 30.5, revenuePrevYear: 34.5, pipelineValue: 285.0, totalLeads: 16800, qualifiedLeads: 7056, totalOpportunities: 2436, wonOpportunities: 874, retentionRate: 95.6, npsScore: 43, serviceCasesCreated: 29500, serviceCasesResolved: 28615, serviceCasesFCR: 22320, avgResolutionTimeHours: 5.2, slaComplianceRate: 97.4, costToServePerCase: 123.0, totalCrmUsers: 1450, activeCrmUsers: 1275, dauUsers: 1085, mauUsers: 1275, rmUsers: 640, salesCycleDays: 21.5, campaignLeads: 5040, campaignConversions: 907, campaignRoi: 15.0 },
+          corporate: { revenueActual: 38.5, revenueTarget: 41.0, revenueBaseline: 34.0, revenuePrevYear: 36.2, pipelineValue: 390.0, totalLeads: 2150, qualifiedLeads: 903, totalOpportunities: 312, wonOpportunities: 112, retentionRate: 98.4, npsScore: 49, serviceCasesCreated: 6200, serviceCasesResolved: 6076, serviceCasesFCR: 4860, avgResolutionTimeHours: 10.8, slaComplianceRate: 98.6, costToServePerCase: 445.0, totalCrmUsers: 620, activeCrmUsers: 548, dauUsers: 466, mauUsers: 548, rmUsers: 220, salesCycleDays: 54.0, campaignLeads: 645, campaignConversions: 123, campaignRoi: 16.8 },
+          wealth: { revenueActual: 18.2, revenueTarget: 16.0, revenueBaseline: 12.5, revenuePrevYear: 14.4, pipelineValue: 165.0, totalLeads: 6300, qualifiedLeads: 2646, totalOpportunities: 913, wonOpportunities: 328, retentionRate: 97.6, npsScore: 53, serviceCasesCreated: 9000, serviceCasesResolved: 8820, serviceCasesFCR: 7497, avgResolutionTimeHours: 2.8, slaComplianceRate: 99.0, costToServePerCase: 178.0, totalCrmUsers: 480, activeCrmUsers: 448, dauUsers: 404, mauUsers: 448, rmUsers: 260, salesCycleDays: 23.5, campaignLeads: 1890, campaignConversions: 359, campaignRoi: 15.5 },
+          service: { revenueActual: 6.3, revenueTarget: 5.5, revenueBaseline: 4.2, revenuePrevYear: 4.9, pipelineValue: 40.0, totalLeads: 4200, qualifiedLeads: 1764, totalOpportunities: 609, wonOpportunities: 218, retentionRate: 95.2, npsScore: 41, serviceCasesCreated: 108000, serviceCasesResolved: 105840, serviceCasesFCR: 82555, avgResolutionTimeHours: 3.0, slaComplianceRate: 98.0, costToServePerCase: 34.5, totalCrmUsers: 2100, activeCrmUsers: 1870, dauUsers: 1590, mauUsers: 1870, rmUsers: 280, salesCycleDays: 11.5, campaignLeads: 1260, campaignConversions: 202, campaignRoi: 10.0 }
+        },
+        MTD: {
+          retail: { revenueActual: 22.1, revenueTarget: 20.2, revenueBaseline: 17.5, revenuePrevYear: 19.4, pipelineValue: 340.0, totalLeads: 34000, qualifiedLeads: 14280, totalOpportunities: 4930, wonOpportunities: 1768, retentionRate: 94.2, npsScore: 41, serviceCasesCreated: 49000, serviceCasesResolved: 47530, serviceCasesFCR: 36123, avgResolutionTimeHours: 3.6, slaComplianceRate: 97.0, costToServePerCase: 41.0, totalCrmUsers: 3400, activeCrmUsers: 3010, dauUsers: 2560, mauUsers: 3010, rmUsers: 1100, salesCycleDays: 13.8, campaignLeads: 10200, campaignConversions: 1880, campaignRoi: 12.8 },
+          sme: { revenueActual: 14.4, revenueTarget: 13.0, revenueBaseline: 10.5, revenuePrevYear: 12.0, pipelineValue: 285.0, totalLeads: 5800, qualifiedLeads: 2436, totalOpportunities: 841, wonOpportunities: 302, retentionRate: 95.8, npsScore: 44, serviceCasesCreated: 10200, serviceCasesResolved: 9894, serviceCasesFCR: 7717, avgResolutionTimeHours: 5.0, slaComplianceRate: 97.6, costToServePerCase: 121.0, totalCrmUsers: 1450, activeCrmUsers: 1285, dauUsers: 1092, mauUsers: 1285, rmUsers: 640, salesCycleDays: 21.0, campaignLeads: 1740, campaignConversions: 314, campaignRoi: 15.2 },
+          corporate: { revenueActual: 13.2, revenueTarget: 14.2, revenueBaseline: 11.8, revenuePrevYear: 12.5, pipelineValue: 390.0, totalLeads: 740, qualifiedLeads: 311, totalOpportunities: 107, wonOpportunities: 38, retentionRate: 98.5, npsScore: 50, serviceCasesCreated: 2150, serviceCasesResolved: 2107, serviceCasesFCR: 1686, avgResolutionTimeHours: 10.5, slaComplianceRate: 98.8, costToServePerCase: 440.0, totalCrmUsers: 620, activeCrmUsers: 554, dauUsers: 471, mauUsers: 554, rmUsers: 220, salesCycleDays: 52.0, campaignLeads: 222, campaignConversions: 42, campaignRoi: 17.0 },
+          wealth: { revenueActual: 6.4, revenueTarget: 5.6, revenueBaseline: 4.4, revenuePrevYear: 5.0, pipelineValue: 165.0, totalLeads: 2200, qualifiedLeads: 924, totalOpportunities: 319, wonOpportunities: 114, retentionRate: 97.8, npsScore: 54, serviceCasesCreated: 3100, serviceCasesResolved: 3038, serviceCasesFCR: 2582, avgResolutionTimeHours: 2.7, slaComplianceRate: 99.2, costToServePerCase: 175.0, totalCrmUsers: 480, activeCrmUsers: 452, dauUsers: 408, mauUsers: 452, rmUsers: 260, salesCycleDays: 23.0, campaignLeads: 660, campaignConversions: 125, campaignRoi: 15.8 },
+          service: { revenueActual: 2.2, revenueTarget: 1.9, revenueBaseline: 1.5, revenuePrevYear: 1.7, pipelineValue: 40.0, totalLeads: 1450, qualifiedLeads: 609, totalOpportunities: 210, wonOpportunities: 75, retentionRate: 95.4, npsScore: 42, serviceCasesCreated: 37500, serviceCasesResolved: 36750, serviceCasesFCR: 28665, avgResolutionTimeHours: 2.9, slaComplianceRate: 98.2, costToServePerCase: 34.0, totalCrmUsers: 2100, activeCrmUsers: 1885, dauUsers: 1602, mauUsers: 1885, rmUsers: 280, salesCycleDays: 11.0, campaignLeads: 435, campaignConversions: 70, campaignRoi: 10.2 }
+        }
+      },
+      monthlyTrends: [
+        { month: "Sep", target: 36.0, actual: 35.2, nps: 34 }, { month: "Oct", target: 37.0, actual: 37.8, nps: 35 },
+        { month: "Nov", target: 38.5, actual: 39.4, nps: 36 }, { month: "Dec", target: 40.0, actual: 41.5, nps: 37 },
+        { month: "Jan", target: 38.0, actual: 39.8, nps: 38 }, { month: "Feb", target: 39.5, actual: 42.0, nps: 38 },
+        { month: "Mar", target: 42.0, actual: 46.2, nps: 39 }, { month: "Apr", target: 40.0, actual: 43.5, nps: 40 },
+        { month: "May", target: 41.5, actual: 45.0, nps: 40 }, { month: "Jun", target: 43.0, actual: 47.8, nps: 41 },
+        { month: "Jul", target: 42.5, actual: 46.4, nps: 41 }, { month: "Aug", target: 44.0, actual: 48.5, nps: 41 }
+      ],
+      valueRealisationPillars: {
+        overallScore: 84, targetScore: 90,
+        pillars: [
+          { name: "Revenue Uplift", score: 91, baseline: "₹0.0 Cr", current: "+₹68.5 Cr", target: "+₹75.0 Cr", realisedValue: "₹68.5 Cr", narrative: "Lead conversion increased to 18.4% with ₹14.8 Cr cross-sell expansion." },
+          { name: "Productivity Capacity", score: 82, baseline: "₹1.57 Cr / RM", current: "₹1.85 Cr / RM", target: "₹2.00 Cr / RM", realisedValue: "₹32.0 Cr", narrative: "Sales deal cycles shortened by 45% (18.5 days vs 34.0 days baseline)." },
+          { name: "Customer Retention & NPS", score: 86, baseline: "NPS +22 | 89.8% Ret", current: "NPS +41 | 94.2% Ret", target: "NPS +45 | 95.0% Ret", realisedValue: "₹24.5 Cr", narrative: "Churn reduced by 4.4pp, preserving ₹24.5 Cr in high-margin deposits and fees." },
+          { name: "Cost-to-Serve & Efficiency", score: 78, baseline: "₹78.0 / case", current: "₹42.0 / case", target: "₹38.0 / case", realisedValue: "₹18.2 Cr", narrative: "FCR improved to 76.0%, eliminating 185,000 repeat service inquiries." }
+        ]
+      },
+      hierarchy: {
+        north: {
+          name: "North Region", leadExecutive: "Rajesh Sharma, Senior VP & Regional Head", revenue: 154.2, target: 142.0,
+          branches: [
+            { name: "New Delhi Connaught Place", code: "DEL-01", revenue: 58.4, target: 52.0, adoption: 92.4, rmCount: 140, nps: 44, leadRM: "Vikas Malhotra" },
+            { name: "Chandigarh Sector 17", code: "CHD-01", revenue: 38.2, target: 36.0, adoption: 88.0, rmCount: 85, nps: 42, leadRM: "Pooja Singhal" },
+            { name: "Jaipur MI Road Flagship", code: "JPR-02", revenue: 32.6, target: 30.0, adoption: 87.5, rmCount: 70, nps: 40, leadRM: "Anil Rathore" }
+          ]
+        },
+        west: {
+          name: "West Region", leadExecutive: "Meera Deshmukh, Executive VP West", revenue: 172.8, target: 160.0,
+          branches: [
+            { name: "Mumbai Nariman Point Flagship", code: "BOM-01", revenue: 78.5, target: 70.0, adoption: 94.0, rmCount: 180, nps: 46, leadRM: "Rohan Parekh" },
+            { name: "Mumbai BKC Corporate Hub", code: "BOM-03", revenue: 48.0, target: 46.0, adoption: 92.0, rmCount: 110, nps: 45, leadRM: "Kavita Nair" },
+            { name: "Pune Senapati Bapat Road", code: "PUN-01", revenue: 28.5, target: 26.0, adoption: 89.5, rmCount: 75, nps: 41, leadRM: "Aditya Joshi" }
+          ]
+        },
+        south: {
+          name: "South Region", leadExecutive: "K. R. Venkatesh, Regional Director South", revenue: 112.5, target: 104.0,
+          branches: [
+            { name: "Bengaluru MG Road Flagship", code: "BLR-01", revenue: 46.5, target: 42.0, adoption: 91.0, rmCount: 115, nps: 43, leadRM: "Siddharth Rao" },
+            { name: "Chennai Anna Salai", code: "MAA-01", revenue: 36.0, target: 34.0, adoption: 85.5, rmCount: 90, nps: 40, leadRM: "Deepa Sundaram" }
+          ]
+        },
+        east: {
+          name: "East Region", leadExecutive: "Sourav Mukherjee, Regional Head East", revenue: 45.5, target: 54.0,
+          branches: [
+            { name: "Kolkata Park Street Hub", code: "CCU-01", revenue: 24.5, target: 28.0, adoption: 78.0, rmCount: 70, nps: 34, leadRM: "Anirban Sen" },
+            { name: "Bhubaneswar Janpath", code: "BBI-01", revenue: 12.0, target: 14.5, adoption: 74.0, rmCount: 40, nps: 32, leadRM: "Smita Patnaik" }
+          ]
+        }
+      },
+      kpiDefinitions: {
+        revenueVsPlan: { name: "Revenue vs Plan", definition: "Total commercial revenue generated against budgeted plan.", calculation: "(Actual Revenue / Target Plan) × 100", source: "Core Financial Ledger", target: ">= 100.0%", meaning: "Primary barometer of commercial execution." },
+        revenueGrowth: { name: "Revenue Growth", definition: "Expansion in revenue compared to baseline pre-CRM.", calculation: "((Actual - Baseline) / Baseline) × 100", source: "Banking Ledger", target: ">= 10.0%", meaning: "Commercial acceleration catalyzed by CRM." },
+        customerGrowth: { name: "Customer Growth", definition: "Net expansion in total active bank customers.", calculation: "((Current - Previous) / Previous) × 100", source: "Customer Master", target: ">= 7.5%", meaning: "Organic market share expansion." },
+        salesConversion: { name: "Sales Conversion Rate", definition: "Percentage of leads converted into won deals.", calculation: "(Won Opportunities / Total Leads) × 100", source: "CRM Lead Pipeline", target: ">= 16.0%", meaning: "Sales funnel efficiency and lead quality." },
+        retentionRate: { name: "Customer Retention Rate", definition: "Proportion of existing customers retained.", calculation: "(1 - (Churned / Active)) × 100", source: "Customer Churn Engine", target: ">= 94.0%", meaning: "Safeguard against high-margin attrition." },
+        npsScore: { name: "Net Promoter Score (NPS)", definition: "Customer advocacy score reflecting loyalty.", calculation: "% Promoters - % Detractors", source: "Post-Interaction Survey", target: ">= +40", meaning: "Leading indicator of organic referral growth." },
+        productivity: { name: "RM Productivity", definition: "Average revenue generated per Relationship Manager.", calculation: "Total Revenue / Number of Active RMs", source: "HR & Sales Performance", target: ">= ₹1.75 Cr / RM", meaning: "Commercial capacity gains unlocked by CRM." },
+        crmAdoption: { name: "CRM Active User Adoption", definition: "Percentage of licensed bank staff actively logging transactions.", calculation: "(Active Users / Total Users) × 100", source: "Platform Telemetry", target: ">= 85.0%", meaning: "Foundation of transformation value." }
+      }
+    };
 
+    /* 2. CALCULATION ENGINE */
+    window.CXO_ENGINE = (function () {
+      const state = { period: "YTD", businessUnit: "all", region: "all" };
+
+      function getAggregatedData() {
+        const pData = window.CXO_DATASET.periodData[state.period] || window.CXO_DATASET.periodData.YTD;
+        let keys = Object.keys(pData);
+        if (state.businessUnit !== "all") keys = keys.filter(k => k === state.businessUnit);
+
+        let acc = { revenueActual: 0, revenueTarget: 0, revenueBaseline: 0, revenuePrevYear: 0, pipelineValue: 0, totalLeads: 0, qualifiedLeads: 0, totalOpportunities: 0, wonOpportunities: 0, totalCrmUsers: 0, activeCrmUsers: 0, dauUsers: 0, mauUsers: 0, rmUsers: 0, campaignLeads: 0, campaignConversions: 0, weightedSalesCycle: 0, weightedResolution: 0, weightedNps: 0, weightedCsat: 0, weightedCostToServe: 0, weightedRetention: 0, serviceCasesCreated: 0, serviceCasesResolved: 0, serviceCasesFCR: 0 };
+
+        keys.forEach(k => {
+          const b = pData[k]; if (!b) return;
+          acc.revenueActual += b.revenueActual; acc.revenueTarget += b.revenueTarget; acc.revenueBaseline += b.revenueBaseline; acc.revenuePrevYear += b.revenuePrevYear;
+          acc.pipelineValue += b.pipelineValue; acc.totalLeads += b.totalLeads; acc.qualifiedLeads += b.qualifiedLeads; acc.totalOpportunities += b.totalOpportunities; acc.wonOpportunities += b.wonOpportunities;
+          acc.totalCrmUsers += b.totalCrmUsers; acc.activeCrmUsers += b.activeCrmUsers; acc.dauUsers += b.dauUsers; acc.mauUsers += b.mauUsers; acc.rmUsers += b.rmUsers;
+          acc.campaignLeads += b.campaignLeads; acc.campaignConversions += b.campaignConversions;
+          acc.serviceCasesCreated += b.serviceCasesCreated; acc.serviceCasesResolved += b.serviceCasesResolved; acc.serviceCasesFCR += b.serviceCasesFCR;
+          acc.weightedSalesCycle += b.salesCycleDays * b.wonOpportunities; acc.weightedResolution += b.avgResolutionTimeHours * b.serviceCasesResolved;
+          acc.weightedNps += b.npsScore * b.wonOpportunities; acc.weightedCostToServe += b.costToServePerCase * b.serviceCasesCreated; acc.weightedRetention += b.retentionRate * b.wonOpportunities;
+        });
+
+        let regFactor = state.region === "north" ? 0.32 : state.region === "west" ? 0.36 : state.region === "south" ? 0.23 : state.region === "east" ? 0.09 : 1.0;
+        if (state.region !== "all") {
+          acc.revenueActual *= regFactor; acc.revenueTarget *= regFactor; acc.revenueBaseline *= regFactor; acc.revenuePrevYear *= regFactor; acc.pipelineValue *= regFactor;
+          acc.totalLeads = Math.round(acc.totalLeads * regFactor); acc.wonOpportunities = Math.round(acc.wonOpportunities * regFactor);
+          acc.serviceCasesCreated = Math.round(acc.serviceCasesCreated * regFactor); acc.serviceCasesResolved = Math.round(acc.serviceCasesResolved * regFactor); acc.serviceCasesFCR = Math.round(acc.serviceCasesFCR * regFactor);
+          acc.activeCrmUsers = Math.round(acc.activeCrmUsers * regFactor); acc.totalCrmUsers = Math.round(acc.totalCrmUsers * regFactor); acc.rmUsers = Math.round(acc.rmUsers * regFactor);
+        }
+
+        const revAchPct = acc.revenueTarget > 0 ? (acc.revenueActual / acc.revenueTarget) * 100 : 108.0;
+        const revGrowthYoY = acc.revenuePrevYear > 0 ? ((acc.revenueActual - acc.revenuePrevYear) / acc.revenuePrevYear) * 100 : 8.2;
+        const revGrowthBase = acc.revenueBaseline > 0 ? ((acc.revenueActual - acc.revenueBaseline) / acc.revenueBaseline) * 100 : 12.4;
+        const salesConv = acc.totalLeads > 0 ? (acc.wonOpportunities / acc.totalLeads) * 100 : 18.4;
+        const oppWin = acc.totalOpportunities > 0 ? (acc.wonOpportunities / acc.totalOpportunities) * 100 : 35.8;
+        const crmAdopt = acc.totalCrmUsers > 0 ? (acc.activeCrmUsers / acc.totalCrmUsers) * 100 : 87.0;
+        const fcr = acc.serviceCasesResolved > 0 ? (acc.serviceCasesFCR / acc.serviceCasesResolved) * 100 : 76.0;
+        const avgRes = acc.serviceCasesResolved > 0 ? acc.weightedResolution / acc.serviceCasesResolved : 3.8;
+        const nps = acc.wonOpportunities > 0 ? Math.round(acc.weightedNps / acc.wonOpportunities) : 41;
+        const costToServe = acc.serviceCasesCreated > 0 ? acc.weightedCostToServe / acc.serviceCasesCreated : 42.0;
+        const retention = acc.wonOpportunities > 0 ? acc.weightedRetention / acc.wonOpportunities : 94.2;
+        const prodCr = acc.rmUsers > 0 ? acc.revenueActual / acc.rmUsers : 0.185;
+
+        return {
+          revenueActual: acc.revenueActual, revenueTarget: acc.revenueTarget, revenueAchievementPct: revAchPct, revenueGrowthYoY: revGrowthYoY, revenueGrowthBaseline: revGrowthBase,
+          customerGrowthPct: 8.6, pipelineValue: acc.pipelineValue, weightedPipeline: acc.pipelineValue * 0.38, pipelineCoverage: acc.revenueActual > 0 ? (acc.pipelineValue / acc.revenueActual) : 2.52,
+          totalLeads: acc.totalLeads, qualifiedLeads: acc.qualifiedLeads, totalOpportunities: acc.totalOpportunities, wonOpportunities: acc.wonOpportunities,
+          salesConversionRate: salesConv, oppWinRate: oppWin, retentionRate: retention, npsScore: nps,
+          serviceCasesCreated: acc.serviceCasesCreated, serviceCasesResolved: acc.serviceCasesResolved, serviceCasesFCR: acc.serviceCasesFCR, fcrRate: fcr,
+          avgResolutionHours: avgRes, slaCompliance: 97.2, costToServe: costToServe, crmAdoptionRate: crmAdopt, rmUsers: acc.rmUsers, revenuePerRmCr: prodCr,
+          campaignLeads: acc.campaignLeads, campaignConversionRate: 18.4, campaignRoi: 13.8, realisedValueCr: (acc.revenueActual - acc.revenueBaseline) + 32.0 + 24.5 + 18.2,
+          healthScore: { overall: 86, growth: 91, customer: 84, productivity: 87, service: 82, adoption: 85 }
+        };
+      }
+
+      function generateExecutiveAlerts() {
+        return [
+          { type: "WATCH", badgeClass: "watch", title: "Retail Banking Conversion Below Target", description: "Retail personal loan conversion is 4.2pp below plan due to KYC drop-offs.", impact: "₹6.8 Cr potential slippage", bu: "Retail Banking" },
+          { type: "AT RISK", badgeClass: "atrisk", title: "SME CRM Adoption Lagging in East Region", description: "East Region branch staff are 12pp below the 85% mobile adoption target.", impact: "Delayed customer visit logging", bu: "SME Banking (East)" },
+          { type: "POSITIVE", badgeClass: "ontrack", title: "Service Resolution Velocity Up +24%", description: "Automated case triage reduced turnaround time from 12.5 hrs to 3.8 hrs, lifting NPS to +41.", impact: "₹18.2 Cr cost savings", bu: "Customer Service" }
+        ];
+      }
+
+      return {
+        getState: () => ({ ...state }),
+        setPeriod: (p) => { state.period = p; },
+        setBusinessUnit: (bu) => { state.businessUnit = bu; },
+        setRegion: (reg) => { state.region = reg; },
+        getData: getAggregatedData,
+        generateExecutiveAlerts
+      };
+    })();
+
+    /* 3. KPI CARD COMPONENT */
+    window.CXO_KPI_CARD = {
+      render: function (opts) {
+        const { id, title, value, target, variancePct, status = "ontrack", definitionKey = "", sparklinePoints = [35, 38, 41, 44, 46, 48.5] } = opts;
+        const isPos = variancePct >= 0;
+        const statusLabel = status === "ontrack" ? "ON TRACK" : status === "watch" ? "WATCH" : "AT RISK";
+
+        return `
+          <div class="kpi-card" data-kpi-id="${id}">
+            <div class="kpi-top-row">
+              <span class="kpi-title">${title} ${definitionKey ? `<span class="kpi-info-trigger" onclick="window.CXO_APP.showKpiInfo('${definitionKey}', event)">ℹ</span>` : ''}</span>
+              <span class="status-badge ${status}">${statusLabel}</span>
+            </div>
+            <div class="kpi-main-val-row">
+              <span class="kpi-value">${value}</span>
+              ${target ? `<div class="kpi-target-tag">Target: <span class="kpi-target-val">${target}</span></div>` : ''}
+            </div>
+            <div class="kpi-footer-row">
+              <span class="kpi-variance ${isPos ? 'positive' : 'negative'}">${isPos ? '↑' : '↓'} ${Math.abs(variancePct).toFixed(1)}% YoY</span>
+              <svg style="width: 55px; height: 18px;" viewBox="0 0 55 18">
+                <polyline fill="none" stroke="${isPos ? '#059669' : '#dc2626'}" stroke-width="2" stroke-linecap="round" points="${this.points(sparklinePoints)}"/>
+              </svg>
+            </div>
+          </div>
+        `;
+      },
+      points: function (arr) {
+        const min = Math.min(...arr), max = Math.max(...arr), range = max - min || 1;
+        return arr.map((v, i) => `${(i / (arr.length - 1)) * 55},${16 - ((v - min) / range) * 14 + 1}`).join(" ");
+      }
+    };
+
+    /* 4. CHARTS */
+    window.CXO_CHARTS = {
+      renderRadialGauge: function (score, max = 100) {
+        const radius = 48, circumference = 2 * Math.PI * radius, offset = circumference - (score / max) * circumference;
+        return `
+          <div style="position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">
+            <svg style="transform: rotate(-90deg); width: 100%; height: 100%;" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="${radius}" fill="none" stroke="#e2e8f0" stroke-width="9"/>
+              <circle cx="60" cy="60" r="${radius}" fill="none" stroke="#059669" stroke-width="9" stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/>
+            </svg>
+            <div style="position: absolute; text-align: center;">
+              <div style="font-family: var(--font-heading); font-size: 1.85rem; font-weight: 800; color: #059669; line-height: 1;">${score}</div>
+              <div style="font-size: 0.7rem; font-weight: 600; color: #94a3b8;">/ ${max} Score</div>
+            </div>
+          </div>
+        `;
+      },
+      renderFunnel: function (stages) {
+        const maxVal = stages[0].value || 1;
+        return `
+          <div class="funnel-container">
+            ${stages.map((st, i) => `
+              <div class="funnel-stage-row">
+                <div class="funnel-stage-meta"><div class="funnel-stage-name">${st.label}</div><div class="funnel-stage-count">${typeof st.value === 'number' ? st.value.toLocaleString() : st.value}</div></div>
+                <div class="funnel-bar-track"><div class="funnel-bar-fill" style="width: ${Math.max(12, (st.value / maxVal) * 100)}%;"><span>${st.sublabel || ''}</span></div></div>
+                <div class="funnel-conversion-rate">${i > 0 ? ((st.value / stages[i - 1].value) * 100).toFixed(1) + "%" : "100%"}</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      },
+      renderMonthlyRevenueChart: function (monthlyTrends) {
+        const w = 620, h = 200, pad = { top: 15, right: 20, bottom: 30, left: 45 }, maxVal = 55;
+        const chartW = w - pad.left - pad.right, chartH = h - pad.top - pad.bottom, step = chartW / monthlyTrends.length;
+        let bars = "", linePoints = [];
+
+        monthlyTrends.forEach((m, i) => {
+          const x = pad.left + i * step + step * 0.25, actualH = (m.actual / maxVal) * chartH, targetY = pad.top + chartH - (m.target / maxVal) * chartH;
+          linePoints.push(`${x + 8},${targetY}`);
+          bars += `
+            <rect x="${x}" y="${pad.top + chartH - actualH}" width="16" height="${actualH}" fill="#2563eb" rx="2" opacity="0.85"><title>${m.month} Actual: ₹${m.actual} Cr</title></rect>
+            <circle cx="${x + 8}" cy="${targetY}" r="3" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
+            <text x="${x + 8}" y="${h - 10}" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">${m.month}</text>
+          `;
+        });
+
+        return `
+          <div style="width: 100%; overflow-x: auto;">
+            <svg viewBox="0 0 ${w} ${h}" style="width: 100%; height: auto; max-height: 220px; font-family: var(--font-body);">
+              <line x1="${pad.left}" y1="${pad.top}" x2="${w - pad.right}" y2="${pad.top}" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+              <line x1="${pad.left}" y1="${pad.top + chartH * 0.5}" x2="${w - pad.right}" y2="${pad.top + chartH * 0.5}" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+              <line x1="${pad.left}" y1="${pad.top + chartH}" x2="${w - pad.right}" y2="${pad.top + chartH}" stroke="#cbd5e1"/>
+              <text x="${pad.left - 6}" y="${pad.top + 4}" font-size="9" fill="#94a3b8" text-anchor="end">₹50 Cr</text>
+              <text x="${pad.left - 6}" y="${pad.top + chartH * 0.5 + 4}" font-size="9" fill="#94a3b8" text-anchor="end">₹25 Cr</text>
+              <text x="${pad.left - 6}" y="${pad.top + chartH + 4}" font-size="9" fill="#94a3b8" text-anchor="end">₹0</text>
+              ${bars}
+              <polyline fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" points="${linePoints.join(' ')}"/>
+            </svg>
+            <div style="display: flex; justify-content: center; gap: 1.5rem; font-size: 0.725rem; color: var(--text-secondary); margin-top: 0.25rem;">
+              <span style="display: inline-flex; align-items: center; gap: 0.35rem;"><span style="display: inline-block; width: 9px; height: 9px; background: #2563eb; border-radius: 2px;"></span> Actual Revenue (₹ Cr)</span>
+              <span style="display: inline-flex; align-items: center; gap: 0.35rem;"><span style="display: inline-block; width: 9px; height: 9px; background: #f59e0b; border-radius: 50%;"></span> Target Plan (₹ Cr)</span>
+            </div>
+          </div>
+        `;
+      },
+      renderScatterPlot: function (type) {
+        const points = type === "revenue" ? [
+          { name: "Mumbai Nariman Point", x: 94.0, y: 16.4 }, { name: "Delhi CP", x: 92.4, y: 14.8 }, { name: "Bengaluru MG Rd", x: 91.0, y: 15.2 }, { name: "Pune SB Rd", x: 89.5, y: 13.0 }, { name: "Chandigarh Sec 17", x: 88.0, y: 11.5 }, { name: "Kolkata Park St", x: 78.0, y: 5.4 }
+        ] : [
+          { name: "Mumbai Nariman Point", x: 94.0, y: 22.5 }, { name: "Delhi CP", x: 92.4, y: 20.8 }, { name: "Bengaluru MG Rd", x: 91.0, y: 19.5 }, { name: "Pune SB Rd", x: 89.5, y: 18.2 }, { name: "Chandigarh Sec 17", x: 88.0, y: 16.5 }, { name: "Kolkata Park St", x: 78.0, y: 9.0 }
+        ];
+        const w = 400, h = 180, pad = { top: 15, right: 15, bottom: 30, left: 35 }, max = type === 'revenue' ? 20 : 25;
+        const chartW = w - pad.left - pad.right, chartH = h - pad.top - pad.bottom;
+        const dots = points.map(p => `
+          <circle cx="${pad.left + ((p.x - 70) / 30) * chartW}" cy="${pad.top + chartH - (p.y / max) * chartH}" r="6" fill="#2563eb" opacity="0.8" stroke="#ffffff" stroke-width="1.5"><title>${p.name}: Adoption ${p.x}%</title></circle>
+        `).join("");
+
+        return `
+          <svg viewBox="0 0 ${w} ${h}" style="width: 100%; height: auto; max-height: 190px; font-family: var(--font-body);">
+            <line x1="${pad.left}" y1="${pad.top + chartH}" x2="${w - pad.right}" y2="${pad.top + chartH}" stroke="#cbd5e1"/>
+            <line x1="${pad.left}" y1="${pad.top + chartH * 0.85}" x2="${w - pad.right}" y2="${pad.top + chartH * 0.15}" stroke="#059669" stroke-width="2" stroke-dasharray="4,4"/>
+            ${dots}
+            <text x="${pad.left}" y="${h - 8}" font-size="9" fill="#64748b">70%</text>
+            <text x="${pad.left + chartW * 0.5}" y="${h - 8}" font-size="9" fill="#64748b" text-anchor="middle">85% Adoption</text>
+            <text x="${w - pad.right}" y="${h - 8}" font-size="9" fill="#64748b" text-anchor="end">100%</text>
+          </svg>
+          <div style="font-size: 0.7rem; color: #059669; font-weight: 700; text-align: right;">Strong Correlation (r = 0.88)</div>
+        `;
+      }
+    };
+
+    /* 5. MODALS & HEADER */
+    window.CXO_DRILLDOWN = {
+      open: function (regKey = "north") {
+        const region = window.CXO_DATASET.hierarchy[regKey] || window.CXO_DATASET.hierarchy.north;
+        const modal = document.getElementById("drilldown-modal"); if (!modal) return;
+        document.getElementById("drilldown-modal-body").innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div><h3 style="font-size: 1.1rem; font-weight: 800;">${region.name}</h3><p style="font-size: 0.8rem; color: var(--text-secondary);">${region.leadExecutive}</p></div>
+            <div style="font-size: 1.25rem; font-weight: 800; color: var(--brand-primary);">₹${region.revenue.toFixed(1)} Cr <span style="font-size: 0.75rem; color: #059669;">(${((region.revenue/region.target)*100).toFixed(0)}% of Plan)</span></div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5rem;">
+            <button class="action-btn ${regKey === 'north' ? 'primary' : ''}" onclick="window.CXO_DRILLDOWN.open('north')">North</button>
+            <button class="action-btn ${regKey === 'west' ? 'primary' : ''}" onclick="window.CXO_DRILLDOWN.open('west')">West</button>
+            <button class="action-btn ${regKey === 'south' ? 'primary' : ''}" onclick="window.CXO_DRILLDOWN.open('south')">South</button>
+            <button class="action-btn ${regKey === 'east' ? 'primary' : ''}" onclick="window.CXO_DRILLDOWN.open('east')">East</button>
+          </div>
+          <table class="scorecard-table">
+            <thead><tr><th>Branch</th><th>Code</th><th>Revenue</th><th>Target</th><th>CRM Adoption</th><th>NPS</th><th>Lead RM</th></tr></thead>
+            <tbody>
+              ${region.branches.map(b => `
+                <tr>
+                  <td><strong>${b.name}</strong></td><td><span class="alert-bu-tag">${b.code}</span></td>
+                  <td><strong>₹${b.revenue.toFixed(1)} Cr</strong></td><td>₹${b.target.toFixed(1)} Cr</td>
+                  <td><strong style="color: ${b.adoption >= 85 ? '#059669' : '#d97706'};">${b.adoption}%</strong></td>
+                  <td>+${b.nps}</td><td><strong>${b.leadRM}</strong></td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+        modal.classList.add("active");
+      },
+      close: () => { const m = document.getElementById("drilldown-modal"); if (m) m.classList.remove("active"); }
+    };
+
+    window.CXO_SIMULATOR = {
+      open: () => { const m = document.getElementById("simulator-modal"); if (m) { window.CXO_SIMULATOR.recalculate(); m.classList.add("active"); } },
+      close: () => { const m = document.getElementById("simulator-modal"); if (m) m.classList.remove("active"); },
+      recalculate: () => {
+        const a = parseFloat(document.getElementById("sim-slider-adoption").value) || 5;
+        const c = parseFloat(document.getElementById("sim-slider-cycle").value) || 15;
+        const s = parseFloat(document.getElementById("sim-slider-stp").value) || 10;
+        document.getElementById("sim-val-adoption").innerText = `+${a}%`;
+        document.getElementById("sim-val-cycle").innerText = `-${c}%`;
+        document.getElementById("sim-val-stp").innerText = `+${s}%`;
+        const rev = (485.0 * (a * 0.007)) + (485.0 * (c * 0.0035));
+        const cost = (18.2 * (s * 0.035)) + (a * 0.4);
+        document.getElementById("sim-out-rev").innerText = `+₹${rev.toFixed(1)} Cr`;
+        document.getElementById("sim-out-cost").innerText = `+₹${cost.toFixed(1)} Cr`;
+        document.getElementById("sim-out-total").innerText = `+₹${(rev + cost).toFixed(1)} Cr`;
+      }
+    };
+
+    window.CXO_HEADER = {
+      render: function () {
+        document.getElementById("app-header").innerHTML = `
+          <div class="header-brand">
+            <div class="brand-logo-badge">BN</div>
+            <div class="brand-titles">
+              <h1>CEO CRM COMMAND CENTRE <span class="rfp-pill">Illustrative Data – RFP Demonstration</span></h1>
+              <p>Business Performance & Value Realisation | Executive View</p>
+            </div>
+          </div>
+          <div class="header-actions">
+            <button class="action-btn" onclick="window.CXO_HEADER.generateAiBrief()">✨ Executive Brief</button>
+            <button class="action-btn" onclick="window.CXO_SIMULATOR.open()">🧮 What-If Simulator</button>
+            <button class="action-btn primary" onclick="window.print()">📄 Export Pack</button>
+          </div>
+        `;
+
+        document.getElementById("filter-bar").innerHTML = `
+          <div class="filter-group">
+            <span class="filter-label">Period:</span>
+            <div class="period-pill-group">
+              <button class="period-pill ${window.CXO_ENGINE.getState().period === 'MTD' ? 'active' : ''}" onclick="window.CXO_HEADER.setPeriod('MTD')">MTD</button>
+              <button class="period-pill ${window.CXO_ENGINE.getState().period === 'QTD' ? 'active' : ''}" onclick="window.CXO_HEADER.setPeriod('QTD')">QTD</button>
+              <button class="period-pill ${window.CXO_ENGINE.getState().period === 'YTD' ? 'active' : ''}" onclick="window.CXO_HEADER.setPeriod('YTD')">YTD</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Business Unit:</span>
+            <select class="filter-select" onchange="window.CXO_HEADER.setBU(this.value)">
+              ${window.CXO_DATASET.businessUnits.map(b => `<option value="${b.id}">${b.name}</option>`).join("")}
+            </select>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Geography:</span>
+            <select class="filter-select" onchange="window.CXO_HEADER.setRegion(this.value)">
+              ${window.CXO_DATASET.regions.map(r => `<option value="${r.id}">${r.name}</option>`).join("")}
+            </select>
+          </div>
+          <div class="filter-meta">🕒 Last Updated: <strong>Today 08:30 IST</strong></div>
+        `;
+
+        const tabs = [
+          { id: "tab-overview", label: "CEO Executive Overview", icon: "🏛️" },
+          { id: "tab-growth", label: "Business Growth", icon: "📈" },
+          { id: "tab-customer", label: "Customer & Service", icon: "🤝" },
+          { id: "tab-value", label: "Productivity & Value", icon: "💎", badge: "CORE" }
+        ];
+
+        document.getElementById("tab-navigation-strip").innerHTML = tabs.map((t, i) => `
+          <button class="nav-tab-btn ${i === 0 ? 'active' : ''}" data-tab-target="${t.id}" onclick="window.CXO_APP.switchTab('${t.id}')">
+            <span>${t.icon} ${t.label}</span>
+            ${t.badge ? `<span class="tab-badge">${t.badge}</span>` : ''}
+          </button>
+        `).join("");
+      },
+      setPeriod: (p) => { window.CXO_ENGINE.setPeriod(p); window.CXO_HEADER.render(); window.CXO_APP.refreshActiveTab(); },
+      setBU: (bu) => { window.CXO_ENGINE.setBusinessUnit(bu); window.CXO_APP.refreshActiveTab(); },
+      setRegion: (r) => { window.CXO_ENGINE.setRegion(r); window.CXO_APP.refreshActiveTab(); },
+      generateAiBrief: () => {
+        const d = window.CXO_ENGINE.getData(), m = document.getElementById("brief-modal"); if (!m) return;
+        document.getElementById("brief-modal-body").innerHTML = `
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="font-weight: 800; color: #1e3a8a; font-size: 0.95rem;">✨ Bank CEO Executive Brief: FY2026 Performance</div>
+            <div style="font-size: 0.75rem; color: #64748b;">Consolidated Boardroom Summary</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.85rem; color: #334155; line-height: 1.5;">
+            <div><strong>1. Revenue vs Plan:</strong> ₹${d.revenueActual.toFixed(0)} Cr (${d.revenueAchievementPct.toFixed(0)}% of plan, +${d.revenueGrowthYoY.toFixed(1)}% YoY), pacing ₹35 Cr ahead of target.</div>
+            <div><strong>2. Customer Experience:</strong> NPS reached +${d.npsScore} with 94.2% customer retention. FCR at ${d.fcrRate.toFixed(1)}% reduced turnaround times by 69%.</div>
+            <div><strong>3. Productivity:</strong> RM Productivity is up +18% (₹${d.revenuePerRmCr.toFixed(2)} Cr / RM) with active CRM adoption at ${d.crmAdoptionRate.toFixed(0)}%.</div>
+            <div><strong>4. Realised Value:</strong> Measured value realised is ₹${d.realisedValueCr.toFixed(0)} Cr across revenue, capacity, and cost reduction.</div>
+          </div>
+        `;
+        m.classList.add("active");
+      },
+      closeBriefModal: () => { const m = document.getElementById("brief-modal"); if (m) m.classList.remove("active"); }
+    };
+
+    /* 6. TAB RENDERERS */
+    window.CXO_TAB_OVERVIEW = {
+      render: function () {
+        const d = window.CXO_ENGINE.getData(), alerts = window.CXO_ENGINE.generateExecutiveAlerts(), pData = window.CXO_DATASET.periodData[window.CXO_ENGINE.getState().period] || window.CXO_DATASET.periodData.YTD;
+        return `
+          <div class="grid-cards-8" style="margin-bottom: 1.25rem;">
+            ${window.CXO_KPI_CARD.render({ id: "k1", title: "Revenue vs Plan", value: "₹" + d.revenueActual.toFixed(0) + " Cr", target: "₹" + d.revenueTarget.toFixed(0) + " Cr", variancePct: d.revenueGrowthYoY, status: "ontrack", definitionKey: "revenueVsPlan" })}
+            ${window.CXO_KPI_CARD.render({ id: "k2", title: "Revenue Growth", value: "+" + d.revenueGrowthBaseline.toFixed(1) + "%", target: "+10.0%", variancePct: d.revenueGrowthBaseline - 10, status: "ontrack", definitionKey: "revenueGrowth" })}
+            ${window.CXO_KPI_CARD.render({ id: "k3", title: "Customer Growth", value: "+8.6%", target: "+7.5%", variancePct: 1.1, status: "ontrack", definitionKey: "customerGrowth" })}
+            ${window.CXO_KPI_CARD.render({ id: "k4", title: "Sales Conversion", value: d.salesConversionRate.toFixed(1) + "%", target: "16.0%", variancePct: d.salesConversionRate - 16, status: "ontrack", definitionKey: "salesConversion" })}
+            ${window.CXO_KPI_CARD.render({ id: "k5", title: "Customer Retention", value: d.retentionRate.toFixed(1) + "%", target: "94.0%", variancePct: d.retentionRate - 94, status: "ontrack", definitionKey: "retentionRate" })}
+            ${window.CXO_KPI_CARD.render({ id: "k6", title: "NPS", value: "+" + d.npsScore, target: "+40", variancePct: 2.5, status: "ontrack", definitionKey: "npsScore" })}
+            ${window.CXO_KPI_CARD.render({ id: "k7", title: "RM Productivity", value: "+18%", target: "+15%", variancePct: 3.0, status: "ontrack", definitionKey: "productivity" })}
+            ${window.CXO_KPI_CARD.render({ id: "k8", title: "CRM Adoption", value: d.crmAdoptionRate.toFixed(0) + "%", target: "85%", variancePct: d.crmAdoptionRate - 85, status: "ontrack", definitionKey: "crmAdoption" })}
+          </div>
+          <div class="grid-1-2col" style="margin-bottom: 1.25rem;">
+            <div class="surface-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="font-size: 0.725rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Executive Composite</div>
+                <h3 style="font-size: 1.1rem; font-weight: 800;">Business Health</h3>
+              </div>
+              <div style="display: flex; justify-content: center; padding: 0.4rem 0;">${window.CXO_CHARTS.renderRadialGauge(d.healthScore.overall, 100)}</div>
+              <div style="background: var(--bg-surface-subtle); border-radius: 6px; padding: 0.65rem; font-size: 0.775rem;">
+                <div style="display: flex; justify-content: space-between; padding: 0.2rem 0; border-bottom: 1px solid var(--border-subtle);"><span>Growth</span><strong style="color: #2563eb;">${d.healthScore.growth} / 100</strong></div>
+                <div style="display: flex; justify-content: space-between; padding: 0.2rem 0; border-bottom: 1px solid var(--border-subtle);"><span>Customer</span><strong style="color: #059669;">${d.healthScore.customer} / 100</strong></div>
+                <div style="display: flex; justify-content: space-between; padding: 0.2rem 0; border-bottom: 1px solid var(--border-subtle);"><span>Productivity</span><strong style="color: #10b981;">${d.healthScore.productivity} / 100</strong></div>
+                <div style="display: flex; justify-content: space-between; padding: 0.2rem 0; border-bottom: 1px solid var(--border-subtle);"><span>Service</span><strong style="color: #0284c7;">${d.healthScore.service} / 100</strong></div>
+                <div style="display: flex; justify-content: space-between; padding: 0.2rem 0;"><span>Adoption</span><strong style="color: #4338ca;">${d.healthScore.adoption} / 100</strong></div>
+              </div>
+            </div>
+            <div class="surface-card">
+              <div class="card-header-flex">
+                <div class="card-title-wrap"><h3>Revenue vs Plan Trajectory (Trailing 12 Months)</h3><p>Actual: <strong>₹${d.revenueActual.toFixed(0)} Cr</strong> vs Target: <strong>₹${d.revenueTarget.toFixed(0)} Cr</strong></p></div>
+                <span class="status-badge ontrack">108% of Plan</span>
+              </div>
+              ${window.CXO_CHARTS.renderMonthlyRevenueChart(window.CXO_DATASET.monthlyTrends)}
+            </div>
+          </div>
+          <div class="surface-card" style="margin-bottom: 1.25rem;">
+            <div class="card-header-flex" style="margin-bottom: 0.65rem;">
+              <div class="card-title-wrap"><h3 style="font-size: 0.925rem;">⚠️ Executive Attention Required</h3></div>
+              <span class="rfp-pill">3 Active Signals</span>
+            </div>
+            <div class="alerts-grid" style="grid-template-columns: repeat(3, 1fr);">
+              ${alerts.map(a => `
+                <div class="alert-card ${a.type === 'AT RISK' ? 'high' : a.type === 'WATCH' ? 'medium' : ''}" style="${a.type === 'POSITIVE' ? 'border-left: 4px solid #059669; background: #ecfdf5;' : ''}">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;"><span class="status-badge ${a.badgeClass}">${a.type}</span><span class="alert-bu-tag">${a.bu}</span></div>
+                  <h4 style="font-size: 0.8rem; font-weight: 700; margin-top: 0.25rem;">${a.title}</h4>
+                  <p style="font-size: 0.75rem; color: var(--text-secondary); margin: 0.2rem 0;">${a.description}</p>
+                  <div style="font-size: 0.7rem; font-weight: 700;">Impact: ${a.impact}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+          <div class="surface-card">
+            <div class="card-header-flex">
+              <div class="card-title-wrap"><h3>Business Unit Performance Scorecard</h3><p>Click any line of business to drill down</p></div>
+              <button class="action-btn" onclick="window.CXO_DRILLDOWN.open('north')">🔍 Hierarchy Drill-Down</button>
+            </div>
+            <table class="scorecard-table">
+              <thead><tr><th>Business Unit</th><th>Revenue vs Plan</th><th>Growth (YoY)</th><th>NPS</th><th>Productivity</th><th>CRM Adoption</th><th>Status</th></tr></thead>
+              <tbody>
+                ${window.CXO_DATASET.businessUnits.filter(b => b.id !== 'all').map(bu => {
+                  const b = pData[bu.id]; if (!b) return "";
+                  const ach = (b.revenueActual / b.revenueTarget) * 100, gr = ((b.revenueActual - b.revenuePrevYear) / b.revenuePrevYear) * 100;
+                  const ad = (b.activeCrmUsers / b.totalCrmUsers) * 100, st = ach >= 100 ? "ontrack" : ach >= 92 ? "watch" : "atrisk";
+                  return `
+                    <tr onclick="window.CXO_DRILLDOWN.open('north', '${bu.id}')">
+                      <td><div class="scorecard-bu-name"><span class="alert-bu-tag">${bu.code}</span><strong>${bu.name}</strong></div></td>
+                      <td><strong>₹${b.revenueActual.toFixed(1)} Cr</strong> <span style="font-size: 0.7rem; color: ${ach >= 100 ? '#059669' : '#d97706'};">(${ach.toFixed(0)}%)</span></td>
+                      <td><strong style="color: #059669;">+${gr.toFixed(1)}%</strong></td>
+                      <td>+${b.npsScore}</td>
+                      <td>₹${((b.revenueActual/b.rmUsers)*100).toFixed(0)}L / RM</td>
+                      <td><strong style="color: ${ad >= 85 ? '#059669' : '#d97706'};">${ad.toFixed(0)}%</strong></td>
+                      <td><span class="status-badge ${st}">${st.toUpperCase()}</span></td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+    };
+
+    window.CXO_TAB_GROWTH = {
+      render: function () {
+        const d = window.CXO_ENGINE.getData(), pData = window.CXO_DATASET.periodData[window.CXO_ENGINE.getState().period] || window.CXO_DATASET.periodData.YTD;
+        const stages = [
+          { label: "1. Total Leads", value: 10000, sublabel: "Omnichannel Inbound" },
+          { label: "2. Qualified Leads", value: 4200, sublabel: "42.0% Qualified" },
+          { label: "3. Sales Opportunities", value: 1450, sublabel: "34.5% Opportunity" },
+          { label: "4. Won Deals", value: 520, sublabel: "35.8% Win Rate (18.4% End-to-End)" }
+        ];
+        return `
+          <div class="grid-cards-6">
+            ${window.CXO_KPI_CARD.render({ id: "g1", title: "Revenue vs Plan", value: "₹" + d.revenueActual.toFixed(0) + " Cr", target: "₹" + d.revenueTarget.toFixed(0) + " Cr", variancePct: d.revenueAchievementPct - 100, status: "ontrack", definitionKey: "revenueVsPlan" })}
+            ${window.CXO_KPI_CARD.render({ id: "g2", title: "Pipeline Value", value: "₹" + d.pipelineValue.toFixed(0) + " Cr", target: "₹1,150 Cr", variancePct: 6.0, status: "ontrack", definitionKey: "salesConversion" })}
+            ${window.CXO_KPI_CARD.render({ id: "g3", title: "Pipeline Coverage", value: d.pipelineCoverage.toFixed(2) + "x", target: "2.50x", variancePct: 1.0, status: "ontrack", definitionKey: "salesConversion" })}
+            ${window.CXO_KPI_CARD.render({ id: "g4", title: "Lead Conversion", value: d.salesConversionRate.toFixed(1) + "%", target: "16.0%", variancePct: d.salesConversionRate - 16, status: "ontrack", definitionKey: "salesConversion" })}
+            ${window.CXO_KPI_CARD.render({ id: "g5", title: "Opportunity Win Rate", value: d.oppWinRate.toFixed(1) + "%", target: "34.0%", variancePct: d.oppWinRate - 34, status: "ontrack", definitionKey: "salesConversion" })}
+            ${window.CXO_KPI_CARD.render({ id: "g6", title: "Cross-Sell Ratio", value: "3.2x", target: "2.8x", variancePct: 14.2, status: "ontrack", definitionKey: "customerGrowth" })}
+          </div>
+          <div class="grid-2col">
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Reconciled Sales Funnel</h3><p>10,000 Leads ↓ 4,200 Qualified ↓ 1,450 Opps ↓ 520 Won</p></div><span class="status-badge ontrack">18.4% Conv</span></div>
+              ${window.CXO_CHARTS.renderFunnel(stages)}
+            </div>
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Revenue by Business Unit vs Plan (₹ Cr)</h3></div></div>
+              <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+                ${window.CXO_DATASET.businessUnits.filter(b => b.id !== 'all').map(bu => {
+                  const b = pData[bu.id]; if (!b) return "";
+                  const pct = (b.revenueActual / b.revenueTarget) * 100;
+                  return `
+                    <div>
+                      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.25rem;"><span>${bu.name}</span><span>₹${b.revenueActual.toFixed(1)} Cr <span style="color: ${pct >= 100 ? '#059669' : '#d97706'}; font-weight: 600;">(${pct.toFixed(0)}%)</span></span></div>
+                      <div class="progress-mini-bar" style="height: 8px;"><div class="progress-mini-fill" style="width: ${Math.min(100, pct)}%; background: ${pct >= 100 ? '#2563eb' : '#f59e0b'};"></div></div>
+                    </div>
+                  `;
+                }).join("")}
+              </div>
+            </div>
+          </div>
+          <div class="grid-3col">
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Pipeline Health</h3></div></div>
+              <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+                <div class="dimension-subcard"><div class="dimension-name">Total Pipeline</div><div class="dimension-score">₹${d.pipelineValue.toFixed(0)} Cr</div></div>
+                <div class="dimension-subcard"><div class="dimension-name">Weighted Pipeline</div><div class="dimension-score" style="color: #2563eb;">₹${d.weightedPipeline.toFixed(1)} Cr</div></div>
+                <div class="dimension-subcard" style="border-color: #fde68a; background: #fffbeb;"><div class="dimension-name" style="color: #92400e;">Opportunities at Risk</div><div class="dimension-score" style="color: #92400e;">₹18.5 Cr</div></div>
+              </div>
+            </div>
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Customer Growth & Cross-Sell</h3></div></div>
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div class="dimension-subcard" style="text-align: left;"><div class="dimension-name">New Customer Contribution</div><div class="dimension-score" style="font-size: 1.1rem; color: #2563eb;">₹142.5 Cr (29.4%)</div></div>
+                <div class="dimension-subcard" style="text-align: left;"><div class="dimension-name">Cross-Sell Contribution</div><div class="dimension-score" style="font-size: 1.1rem; color: #059669;">₹184.0 Cr (37.9%)</div></div>
+                <div class="dimension-subcard" style="text-align: left;"><div class="dimension-name">Existing Recurring Base</div><div class="dimension-score" style="font-size: 1.1rem; color: #475569;">₹158.5 Cr (32.7%)</div></div>
+              </div>
+            </div>
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Marketing Contribution</h3></div><span class="status-badge ontrack">13.8x ROI</span></div>
+              <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+                <div class="dimension-subcard"><div class="dimension-name">Campaign Leads</div><div class="dimension-score">${d.campaignLeads.toLocaleString()}</div></div>
+                <div class="dimension-subcard"><div class="dimension-name">Campaign Conversion</div><div class="dimension-score" style="color: #059669;">18.4%</div></div>
+                <div class="dimension-subcard"><div class="dimension-name">Marketing ROI</div><div class="dimension-score" style="color: #1e3a8a;">13.8x</div></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    };
+
+    window.CXO_TAB_CUSTOMER = {
+      render: function () {
+        const d = window.CXO_ENGINE.getData(), pData = window.CXO_DATASET.periodData[window.CXO_ENGINE.getState().period] || window.CXO_DATASET.periodData.YTD;
+        const stages = [
+          { label: "1. Cases Ingested", value: d.serviceCasesCreated, sublabel: "Omnichannel Customer Inquiries" },
+          { label: "2. Cases Resolved", value: d.serviceCasesResolved, sublabel: "97.0% Resolved" },
+          { label: "3. First Contact (FCR)", value: d.serviceCasesFCR, sublabel: "76.0% Resolved at First Touch" }
+        ];
+        return `
+          <div class="grid-cards-6">
+            ${window.CXO_KPI_CARD.render({ id: "c1", title: "Net Promoter Score", value: "+" + d.npsScore, target: "+40", variancePct: 2.5, status: "ontrack", definitionKey: "npsScore" })}
+            ${window.CXO_KPI_CARD.render({ id: "c2", title: "Customer Retention", value: d.retentionRate.toFixed(1) + "%", target: "94.0%", variancePct: d.retentionRate - 94, status: "ontrack", definitionKey: "retentionRate" })}
+            ${window.CXO_KPI_CARD.render({ id: "c3", title: "First Contact Resolution", value: d.fcrRate.toFixed(1) + "%", target: "75.0%", variancePct: d.fcrRate - 75, status: "ontrack", definitionKey: "retentionRate" })}
+            ${window.CXO_KPI_CARD.render({ id: "c4", title: "Complaint SLA Compliance", value: d.slaCompliance.toFixed(1) + "%", target: "95.0%", variancePct: d.slaCompliance - 95, status: "ontrack", definitionKey: "retentionRate" })}
+            ${window.CXO_KPI_CARD.render({ id: "c5", title: "Avg Resolution Time", value: d.avgResolutionHours.toFixed(1) + " hrs", target: "5.0 hrs", variancePct: -24.0, isPositiveGood: false, status: "ontrack", definitionKey: "retentionRate" })}
+            ${window.CXO_KPI_CARD.render({ id: "c6", title: "Cost-to-Serve / Case", value: "₹" + d.costToServe.toFixed(0), target: "₹45", variancePct: -6.7, isPositiveGood: false, status: "ontrack", definitionKey: "retentionRate" })}
+          </div>
+          <div class="grid-2col">
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Net Promoter Score (NPS) Monthly Trend</h3></div><span class="status-badge ontrack">+19 pts vs Baseline</span></div>
+              <div style="padding: 1rem 0;">
+                <svg viewBox="0 0 480 140" style="width: 100%; height: auto; font-family: var(--font-body);">
+                  <line x1="30" y1="20" x2="460" y2="20" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+                  <line x1="30" y1="70" x2="460" y2="70" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+                  <line x1="30" y1="120" x2="460" y2="120" stroke="#cbd5e1"/>
+                  <line x1="30" y1="35" x2="460" y2="35" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,4"/>
+                  <polyline fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" points="40,100 80,92 120,85 160,80 200,70 240,70 280,55 320,50 360,50 400,28 440,28"/>
+                  <circle cx="440" cy="28" r="4" fill="#059669" stroke="#ffffff" stroke-width="2"/>
+                  <text x="440" y="16" font-size="10" font-weight="800" fill="#059669" text-anchor="middle">+41</text>
+                </svg>
+              </div>
+            </div>
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Customer Retention vs Churn</h3></div><span class="status-badge ontrack">94.2% Retained</span></div>
+              <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+                <div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.25rem;"><span style="color: #059669;">● Retained Active Customers</span><strong>94.2%</strong></div><div class="progress-mini-bar" style="height: 12px;"><div class="progress-mini-fill" style="width: 94.2%; background: #059669;"></div></div></div>
+                <div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.25rem;"><span style="color: #dc2626;">● Churned Accounts</span><strong>5.8%</strong></div><div class="progress-mini-bar" style="height: 12px;"><div class="progress-mini-fill" style="width: 5.8%; background: #dc2626;"></div></div></div>
+                <div style="background: #f8fafc; padding: 0.65rem; border-radius: 6px; font-size: 0.725rem; color: var(--text-secondary);">Preserved <strong>₹24.5 Cr in annual recurring deposits and fee margins</strong>.</div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-2col">
+            <div class="surface-card"><div class="card-header-flex"><div class="card-title-wrap"><h3>Service Health & FCR Lifecycle</h3></div><span class="status-badge ontrack">76.0% FCR</span></div>${window.CXO_CHARTS.renderFunnel(stages)}</div>
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Customer Experience by Business Unit</h3></div></div>
+              <table class="scorecard-table">
+                <thead><tr><th>Business Unit</th><th>NPS Score</th><th>Retention</th><th>Complaint SLA</th><th>Status</th></tr></thead>
+                <tbody>
+                  ${window.CXO_DATASET.businessUnits.filter(b => b.id !== 'all').map(bu => {
+                    const b = pData[bu.id]; if (!b) return "";
+                    return `<tr><td><strong>${bu.name}</strong></td><td><strong style="color: #059669;">+${b.npsScore}</strong></td><td>${b.retentionRate.toFixed(1)}%</td><td>${b.slaComplianceRate.toFixed(1)}%</td><td><span class="status-badge ontrack">ON TRACK</span></td></tr>`;
+                  }).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+    };
+
+    window.CXO_TAB_VALUE = {
+      render: function () {
+        const d = window.CXO_ENGINE.getData(), vm = window.CXO_DATASET.valueRealisationPillars;
+        return `
+          <div class="grid-cards-6">
+            ${window.CXO_KPI_CARD.render({ id: "v1", title: "Productivity Improvement", value: "+18%", target: "+15%", variancePct: 3.0, status: "ontrack", definitionKey: "productivity" })}
+            ${window.CXO_KPI_CARD.render({ id: "v2", title: "Sales Cycle Reduction", value: "-45%", target: "-35%", variancePct: 10.0, status: "ontrack", definitionKey: "salesConversion" })}
+            ${window.CXO_KPI_CARD.render({ id: "v3", title: "Resolution Reduction", value: "-69%", target: "-50%", variancePct: 19.0, status: "ontrack", definitionKey: "retentionRate" })}
+            ${window.CXO_KPI_CARD.render({ id: "v4", title: "CRM Active Users", value: d.crmAdoptionRate.toFixed(0) + "%", target: "85%", variancePct: d.crmAdoptionRate - 85, status: "ontrack", definitionKey: "crmAdoption" })}
+            ${window.CXO_KPI_CARD.render({ id: "v5", title: "Core Process Adoption", value: "91.2%", target: "85.0%", variancePct: 6.2, status: "ontrack", definitionKey: "crmAdoption" })}
+            ${window.CXO_KPI_CARD.render({ id: "v6", title: "Realised Business Value", value: "₹" + d.realisedValueCr.toFixed(0) + " Cr", target: "₹130 Cr", variancePct: 10.1, status: "ontrack", definitionKey: "revenueVsPlan" })}
+          </div>
+          <div class="grid-2col">
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>Productivity Gains (Current vs Baseline)</h3></div><span class="status-badge ontrack">+18% Efficiency</span></div>
+              <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.35rem;">
+                <div class="dimension-subcard" style="text-align: left; display: flex; justify-content: space-between; align-items: center;"><div><div class="dimension-name">RM Revenue Productivity</div><div class="dimension-score" style="font-size: 1.15rem; color: #059669;">₹1.85 Cr / RM <span style="font-size: 0.7rem; color: #64748b;">(vs ₹1.57 Cr)</span></div></div><span class="status-badge ontrack">+18%</span></div>
+                <div class="dimension-subcard" style="text-align: left; display: flex; justify-content: space-between; align-items: center;"><div><div class="dimension-name">Sales Deal Cycle</div><div class="dimension-score" style="font-size: 1.15rem; color: #059669;">18.5 days <span style="font-size: 0.7rem; color: #64748b;">(vs 34.0 days)</span></div></div><span class="status-badge ontrack">-45%</span></div>
+                <div class="dimension-subcard" style="text-align: left; display: flex; justify-content: space-between; align-items: center;"><div><div class="dimension-name">Service Resolution Time</div><div class="dimension-score" style="font-size: 1.15rem; color: #059669;">3.8 hours <span style="font-size: 0.7rem; color: #64748b;">(vs 12.5 hrs)</span></div></div><span class="status-badge ontrack">-69%</span></div>
+              </div>
+            </div>
+            <div class="surface-card">
+              <div class="card-header-flex"><div class="card-title-wrap"><h3>CRM Adoption in Real Business Processes</h3></div><span class="status-badge ontrack">87% Active</span></div>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; margin-top: 0.35rem;">
+                <div class="dimension-subcard"><div class="dimension-name">1. Active Users</div><div class="dimension-score" style="color: #2563eb;">87%</div><p style="font-size: 0.7rem; color: var(--text-secondary);">6,700+ active staff</p></div>
+                <div class="dimension-subcard"><div class="dimension-name">2. Daily Usage (DAU)</div><div class="dimension-score" style="color: #2563eb;">85%</div><p style="font-size: 0.7rem; color: var(--text-secondary);">Daily stickiness</p></div>
+                <div class="dimension-subcard"><div class="dimension-name">3. Core Process</div><div class="dimension-score" style="color: #059669;">91.2%</div><p style="font-size: 0.7rem; color: var(--text-secondary);">Digitized workflows</p></div>
+                <div class="dimension-subcard"><div class="dimension-name">4. Approvals via CRM</div><div class="dimension-score" style="color: #059669;">94.8%</div><p style="font-size: 0.7rem; color: var(--text-secondary);">Automated sign-offs</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="surface-card" style="margin-bottom: 1.5rem;">
+            <div class="card-header-flex"><div class="card-title-wrap"><h3>CRM Adoption vs Business Performance (Branch Correlation)</h3></div><span class="rfp-pill">Illustrative Relationship – RFP Demonstration</span></div>
+            <div class="grid-2col" style="margin-bottom: 0;">
+              <div><h4 style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem;">CRM Adoption % vs Revenue Growth (%)</h4>${window.CXO_CHARTS.renderScatterPlot("revenue")}</div>
+              <div><h4 style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem;">CRM Adoption % vs RM Productivity (₹ Lakhs / RM / mo)</h4>${window.CXO_CHARTS.renderScatterPlot("productivity")}</div>
+            </div>
+          </div>
+          <div class="surface-card">
+            <div class="card-header-flex">
+              <div class="card-title-wrap"><h3>Value Realisation Transformation Model (Baseline → Realised)</h3></div>
+              <div style="text-align: right;"><div style="font-size: 1.1rem; font-weight: 800; color: #1e3a8a;">VALUE REALISATION: ${vm.overallScore}%</div><div style="font-size: 0.725rem; color: var(--text-secondary);">Target: ${vm.targetScore}%</div></div>
+            </div>
+            <table class="scorecard-table">
+              <thead><tr><th>Pillar</th><th>Score</th><th>Baseline</th><th>Current State</th><th>Target Plan</th><th>Realised Value</th><th>Business Impact</th></tr></thead>
+              <tbody>
+                ${vm.pillars.map(p => `
+                  <tr>
+                    <td><strong>${p.name}</strong></td><td><strong style="color: #059669;">${p.score}%</strong></td><td>${p.baseline}</td>
+                    <td><strong>${p.current}</strong></td><td>${p.target}</td><td><strong style="color: #1e3a8a; font-size: 0.9rem;">${p.realisedValue}</strong></td>
+                    <td><span style="font-size: 0.75rem; color: var(--text-secondary);">${p.narrative}</span></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+    };
+
+    /* 7. APP COORDINATOR */
+    window.CXO_APP = {
+      activeTab: "tab-overview",
+      init: function () {
+        window.CXO_HEADER.render();
+        this.renderTab(this.activeTab);
+        this.setupGlobalEvents();
+      },
+      switchTab: function (tabId) {
+        this.activeTab = tabId;
+        document.querySelectorAll(".nav-tab-btn").forEach(btn => {
+          btn.classList.toggle("active", btn.getAttribute("data-tab-target") === tabId);
+        });
+        this.renderTab(tabId);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+      renderTab: function (tabId) {
+        const main = document.getElementById("main-content-canvas"); if (!main) return;
+        let html = tabId === "tab-growth" ? window.CXO_TAB_GROWTH.render() : tabId === "tab-customer" ? window.CXO_TAB_CUSTOMER.render() : tabId === "tab-value" ? window.CXO_TAB_VALUE.render() : window.CXO_TAB_OVERVIEW.render();
+        main.innerHTML = `<div class="tab-pane active" id="${tabId}">${html}</div>`;
+      },
+      refreshActiveTab: function () { this.renderTab(this.activeTab); },
+      showKpiInfo: function (defKey, e) {
+        if (e) e.stopPropagation();
+        const def = window.CXO_DATASET.kpiDefinitions[defKey], popup = document.getElementById("kpi-tooltip-popup"); if (!def || !popup) return;
+        popup.innerHTML = `
+          <div class="tooltip-title">${def.name}</div>
+          <div class="tooltip-row"><strong>Definition:</strong> ${def.definition}</div>
+          <div class="tooltip-row"><strong>Calculation:</strong> <code>${def.calculation}</code></div>
+          <div class="tooltip-row"><strong>Target:</strong> ${def.target}</div>
+          <div class="tooltip-row"><strong>Executive Meaning:</strong> ${def.meaning}</div>
+        `;
+        const rect = e.target.getBoundingClientRect();
+        popup.style.top = `${rect.bottom + window.scrollY + 6}px`;
+        popup.style.left = `${Math.min(window.innerWidth - 290, rect.left + window.scrollX - 10)}px`;
+        popup.classList.add("active");
+        const close = () => { popup.classList.remove("active"); document.removeEventListener("click", close); };
+        setTimeout(() => document.addEventListener("click", close), 50);
+      },
+      setupGlobalEvents: function () {
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") { window.CXO_DRILLDOWN.close(); window.CXO_SIMULATOR.close(); window.CXO_HEADER.closeBriefModal(); }
+          if (!e.ctrlKey && !e.metaKey && !e.altKey && e.target.tagName !== "INPUT" && e.target.tagName !== "SELECT") {
+            const m = { "1": "tab-overview", "2": "tab-growth", "3": "tab-customer", "4": "tab-value" };
+            if (m[e.key]) this.switchTab(m[e.key]);
+          }
+        });
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => window.CXO_APP.init());
+  </script>
 </body>
 </html>
