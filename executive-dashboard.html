@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Maybank Executive Command Centre | Overview, Growth & Customer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+:root{
+  --f:'Poppins',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --brand:#F5C518;--brand-d:#D4A800;
+  --page:#F4F5F7;--white:#fff;
+  --bdr:#E2E5EA;--bdr-l:#EEF0F3;
+  --ink:#2B3038;--ink2:#3D4550;--mu:#7A808E;--ey:#A0A6B1;
+  --blue:#3B7DDD;--blue-b:#EAF1FC;--blue-t:#2864B8;
+  --green:#1FAD6E;--green-b:#E6F7EF;--green-t:#168A57;
+  --amber:#E5A100;--amber-b:#FFF8E6;--amber-t:#B58000;
+  --red:#D63B3B;--red-b:#FCEAEA;--red-t:#B52D2D;
+  --ind:#6C6CF1;--ind-b:#F0F0FF;
+  --cyan:#1AABB5;--cyan-b:#E5F9FA;
+  --pink:#DB4D80;--pink-b:#FBE9EF;
+  --sh:0 1px 3px rgba(20,28,40,.04),0 2px 8px rgba(20,28,40,.06);
+  --sh2:0 4px 16px rgba(20,28,40,.1);
+  --r:12px;--rr:10px;--tr:.18s ease;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;min-height:100%;background:var(--page);}
+body{font-family:var(--f);font-size:13px;line-height:1.5;color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+/* === SHELL === */
+.shell{display:flex;flex-direction:column;min-height:100vh;}
+
+/* === TABS === */
+.tabs{background:var(--white);border-bottom:1px solid var(--bdr);display:flex;gap:0;padding:0 20px;flex:none;overflow-x:auto;}
+.tabs::-webkit-scrollbar{height:3px;}
+.tabs::-webkit-scrollbar-thumb{background:#ddd;border-radius:2px;}
+.t{border:none;background:none;font-family:var(--f);font-size:13px;font-weight:600;color:var(--mu);
+   padding:11px 16px;border-bottom:2.5px solid transparent;margin-bottom:-1px;cursor:pointer;transition:color var(--tr),border-color var(--tr);white-space:nowrap;}
+.t:hover{color:var(--ink);}
+.t.on{color:var(--ink);border-bottom-color:var(--brand);}
+
+/* === FILTER BAR === */
+.f-bar{background:var(--white);border-bottom:1px solid var(--bdr);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;flex:none;}
+.f-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.f-pills{display:inline-flex;background:var(--page);padding:2px;border-radius:var(--rr);border:1px solid var(--bdr);}
+.fp{border:none;background:none;font-family:var(--f);font-size:11px;font-weight:600;color:var(--mu);padding:4px 12px;border-radius:var(--rr);cursor:pointer;transition:all var(--tr);}
+.fp.on{background:var(--white);color:var(--ink);font-weight:700;box-shadow:var(--sh);}
+.f-sel{font-family:var(--f);font-size:12px;font-weight:600;color:var(--ink);background:var(--white);border:1px solid var(--bdr);border-radius:var(--rr);padding:5px 12px;cursor:pointer;outline:none;transition:border-color var(--tr);}
+.f-sel:hover{border-color:var(--mu);}
+.f-meta{font-size:11px;color:var(--mu);}
+
+/* === BODY (FLEXIBLE NO INNER SCROLLBAR) === */
+.bd{flex:1;padding:16px 20px;}
+.pn{display:none;}.pn.on{display:block;}
+
+/* === KPI STRIP === */
+.ks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.kc{background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);
+    padding:14px 16px;position:relative;overflow:hidden;transition:box-shadow var(--tr),transform var(--tr);}
+.kc:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
+.kc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:0 2px 2px 0;background:var(--ac);}
+.kc-row{display:flex;align-items:flex-start;gap:12px;}
+.kc-icon{width:36px;height:36px;border-radius:var(--rr);display:grid;place-items:center;flex:none;background:var(--ib);color:var(--ac);}
+.kc-icon svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.kc-body{flex:1;min-width:0;}
+.kc-label{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;font-weight:600;line-height:1.3;margin-bottom:4px;}
+.kc-val-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+.kc-val{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.1;}
+.kc-trend{font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:2px;}
+.kc-trend.up{color:var(--green-t);}.kc-trend.dn{color:var(--red-t);}
+.kc-cap{font-size:10px;color:var(--ey);margin-top:4px;line-height:1.3;}
+
+/* === GRID === */
+.row{display:grid;gap:12px;margin-bottom:14px;}
+.r2{grid-template-columns:1fr 1fr;}
+.r3{grid-template-columns:1fr 1fr 1fr;}
+.r23{grid-template-columns:1.5fr 1fr;}
+.r32{grid-template-columns:1fr 1.5fr;}
+
+/* === CARD === */
+.c{background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:box-shadow var(--tr);}
+.c:hover{box-shadow:var(--sh2);}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bdr-l);}
+.ch-left{flex:1;}
+.ch h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ch .sub{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:6px;}
+.ch .tag{font-size:10px;font-weight:700;color:var(--green-t);background:var(--green-b);padding:1px 6px;border-radius:8px;}
+.cp{padding:14px 16px;}
+
+/* === QUARTER / EXECUTIVE GLANCE CARDS === */
+.qc{background:var(--white);border:1px solid var(--bdr);border-radius:var(--rr);padding:14px 16px;position:relative;overflow:hidden;margin-bottom:8px;}
+.qc:last-child{margin-bottom:0;}
+.qc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:0 2px 2px 0;background:var(--ac,var(--blue));}
+.qc-label{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:3px;}
+.qc-val{font-size:20px;font-weight:700;color:var(--ink);line-height:1.15;}
+.qc-note{font-size:11px;color:var(--green-t);font-weight:600;margin-top:3px;}
+
+/* === CHART SVG === */
+svg.sv{width:100%;display:block;}
+
+/* === LEGEND === */
+.lg{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-top:8px;border-top:1px solid var(--bdr-l);}
+.lg span{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2);}
+.lg i{width:8px;height:8px;border-radius:2px;display:inline-block;}
+
+/* === GAUGE ROW === */
+.gr{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
+.gc{background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);padding:12px;text-align:center;}
+.gc-label{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:6px;}
+.gc-note{font-size:10px;color:var(--mu);margin-top:4px;}
+
+/* === TABLE === */
+.ts{overflow-x:auto;}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;}
+table th{position:sticky;top:0;background:var(--page);color:var(--mu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:8px 12px;border-bottom:1.5px solid var(--bdr);z-index:2;}
+table td{padding:9px 12px;border-bottom:1px solid var(--bdr-l);}
+table tbody tr{transition:background var(--tr);}
+table tbody tr:nth-child(even){background:#FAFBFC;}
+table tbody tr:hover{background:var(--blue-b);}
+td.r,th.r{text-align:right;}
+td a{color:var(--blue-t);text-decoration:none;font-weight:600;}
+td a:hover{text-decoration:underline;color:var(--blue);}
+
+/* === BADGE === */
+.bx{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;line-height:1.4;}
+.bx::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;}
+.bx.ok{color:var(--green-t);background:var(--green-b);}
+.bx.warn{color:var(--amber-t);background:var(--amber-b);}
+.bx.bad{color:var(--red-t);background:var(--red-b);}
+.bx.info{color:var(--blue-t);background:var(--blue-b);}
+
+/* === FUNNEL === */
+.funnel-container{display:flex;flex-direction:column;gap:8px;}
+.funnel-stage-row{display:flex;align-items:center;gap:12px;}
+.funnel-meta{width:130px;flex:none;}
+.funnel-name{font-size:11px;font-weight:700;color:var(--ink);}
+.funnel-count{font-size:10px;color:var(--mu);}
+.funnel-bar-track{flex:1;height:24px;background:var(--bdr-l);border-radius:4px;overflow:hidden;}
+.funnel-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue) 0%,var(--cyan) 100%);border-radius:4px;display:flex;align-items:center;padding-left:10px;color:#fff;font-weight:700;font-size:10px;}
+.funnel-rate{width:70px;text-align:right;font-size:11px;font-weight:700;color:var(--ink2);}
+
+/* === TOOLTIP === */
+[data-tip]{position:relative;cursor:default;}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);
+  background:#1e2633;color:#fff;font-size:10px;padding:3px 8px;border-radius:5px;white-space:nowrap;z-index:99;pointer-events:none;}
+
+/* === RESPONSIVE === */
+@media(max-width:1100px){.ks{grid-template-columns:1fr 1fr;}.r2,.r23,.r32{grid-template-columns:1fr;}.r3{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.ks{grid-template-columns:1fr;}.r3{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- 3 FOCUSED TABS -->
+<div class="tabs">
+  <button class="t on" data-t="ov">CEO Executive Overview</button>
+  <button class="t" data-t="gr">Business Growth</button>
+  <button class="t" data-t="cs">Customer &amp; Service</button>
+</div>
+
+<!-- FILTER PARAMETERS BAR -->
+<div class="f-bar">
+  <div class="f-left">
+    <div class="f-pills" id="f-period">
+      <button class="fp" data-p="MTD">MTD</button>
+      <button class="fp" data-p="QTD">QTD</button>
+      <button class="fp on" data-p="YTD">YTD</button>
+    </div>
+    <select class="f-sel" id="f-bu">
+      <option value="all">Maybank Group (All BUs)</option>
+      <option value="retail">Community Financial Services (CFS)</option>
+      <option value="sme">SME &amp; Commercial Banking</option>
+      <option value="corporate">Global Banking (Corporate / IB)</option>
+      <option value="wealth">Maybank Wealth Management</option>
+      <option value="service">Customer Experience &amp; Ops</option>
+    </select>
+    <select class="f-sel" id="f-reg">
+      <option value="all">National &amp; ASEAN (All Regions)</option>
+      <option value="central">Klang Valley &amp; Central Region</option>
+      <option value="north">Northern Region (Penang / Perak)</option>
+      <option value="south">Southern Region (Johor / Melaka)</option>
+      <option value="east">East Malaysia (Sabah &amp; Sarawak)</option>
+      <option value="intl">Singapore &amp; ASEAN International</option>
+    </select>
+  </div>
+  <div class="f-meta">
+    Currency: <strong>MYR (RM)</strong> · Telemetry: <strong>Live Real-Time Sync</strong>
+  </div>
+</div>
+
+<div class="bd">
+
+<!-- ═══════════ TAB 1: CEO EXECUTIVE OVERVIEW ═══════════ -->
+<div class="pn on" id="ov">
+  <div class="ks" id="k-ov"></div>
+  
+  <div class="row r23">
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>Revenue vs Plan Trajectory (Trailing 12 Months)</h3>
+          <div class="sub" id="sub-revplan">Actual: <strong>RM 485.0M</strong> · Target: <strong>RM 450.0M</strong> · <span class="tag">108% of Plan</span></div>
+        </div>
+      </div>
+      <div class="cp">
+        <svg class="sv" id="ch-revplan" viewBox="0 0 560 140"></svg>
+        <div class="lg" id="lg-revplan"></div>
+      </div>
+    </div>
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>Executive at a Glance</h3>
+          <div class="sub">Group value realization metrics</div>
+        </div>
+      </div>
+      <div class="cp" id="qglance-ov"></div>
+    </div>
+  </div>
+
+  <div class="row r2">
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>Revenue Mix by Line of Business</h3>
+          <div class="sub">Group total commercial revenue breakdown</div>
+        </div>
+      </div>
+      <div class="cp" style="display:flex;align-items:center;gap:16px;">
+        <svg class="sv" id="ch-revpie" viewBox="0 0 130 130" style="width:120px;flex:none;"></svg>
+        <div class="lg" id="lg-rev" style="flex:1;flex-direction:column;border:none;padding:0;margin:0;"></div>
+      </div>
+    </div>
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>⚠️ Executive Attention Required</h3>
+          <div class="sub">Key signals & exception alerts</div>
+        </div>
+      </div>
+      <div class="ts">
+        <table>
+          <thead>
+            <tr><th>Signal</th><th>Business Unit</th><th>Impact</th><th>Status</th></tr>
+          </thead>
+          <tbody id="tb-alerts"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row r23">
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>Maybank Line of Business Performance Scorecard</h3>
+          <div class="sub">Commercial execution & CRM adoption across BUs</div>
+        </div>
+      </div>
+      <div class="ts">
+        <table>
+          <thead>
+            <tr><th>Business Unit</th><th class="r">Revenue</th><th class="r">vs Plan</th><th class="r">NPS</th><th class="r">Adoption</th><th>Status</th></tr>
+          </thead>
+          <tbody id="tb-scorecard"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="gr" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div class="gc"><div class="gc-label">Growth</div><div id="g1"></div><div class="gc-note" id="gn1">91 / 100</div></div>
+      <div class="gc"><div class="gc-label">Customer</div><div id="g2"></div><div class="gc-note" id="gn2">84 / 100</div></div>
+      <div class="gc"><div class="gc-label">Productivity</div><div id="g3"></div><div class="gc-note" id="gn3">87 / 100</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 2: BUSINESS GROWTH ═══════════ -->
+<div class="pn" id="gr">
+  <div class="ks" id="k-gr"></div>
+  
+  <div class="row r2">
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>Reconciled Commercial Sales Funnel</h3>
+          <div class="sub" id="sub-funnel">10,000 Leads ↓ 4,200 Qualified ↓ 1,450 Opps ↓ 520 Won · <span class="tag">18.4% Conv</span></div>
+        </div>
+      </div>
+      <div class="cp" id="funnel-growth"></div>
+    </div>
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>Revenue by Business Unit vs Plan (RM M)</h3>
+          <div class="sub">Actual vs Budgeted Plan</div>
+        </div>
+      </div>
+      <div class="cp">
+        <svg class="sv" id="ch-bu-rev" viewBox="0 0 560 140"></svg>
+        <div class="lg"><span><i style="background:var(--blue)"></i>Actual Revenue (M)</span><span><i style="background:var(--pink)"></i>Target Plan (M)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row r3">
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Pipeline Risk Mix</h3><div class="sub">Weighted health</div></div></div>
+      <div class="cp" style="display:flex;align-items:center;gap:12px;"><svg class="sv" id="ch-piperisk" viewBox="0 0 110 110" style="width:90px;flex:none;"></svg><div class="lg" id="lg-piperisk" style="flex:1;flex-direction:column;border:none;padding:0;margin:0;"></div></div>
+    </div>
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Customer Growth Mix</h3><div class="sub">New vs Cross-Sell</div></div></div>
+      <div class="cp" style="display:flex;align-items:center;gap:12px;"><svg class="sv" id="ch-growthmix" viewBox="0 0 110 110" style="width:90px;flex:none;"></svg><div class="lg" id="lg-growthmix" style="flex:1;flex-direction:column;border:none;padding:0;margin:0;"></div></div>
+    </div>
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Marketing Attribution</h3><div class="sub">Campaign ROI: <span class="tag" id="tag-mktg-roi">13.8x</span></div></div></div>
+      <div class="cp" style="display:flex;align-items:center;gap:12px;"><svg class="sv" id="ch-mktgmix" viewBox="0 0 110 110" style="width:90px;flex:none;"></svg><div class="lg" id="lg-mktgmix" style="flex:1;flex-direction:column;border:none;padding:0;margin:0;"></div></div>
+    </div>
+  </div>
+
+  <div class="row r2">
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Weekly Inbound Commercial Demand</h3><div class="sub">Lead inflow · Digital vs Branch referrals</div></div></div>
+      <div class="cp"><svg class="sv" id="ch-leadwk" viewBox="0 0 560 140"></svg><div class="lg" id="lg-leadwk"></div></div>
+    </div>
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Pipeline Health &amp; Priority Deals</h3><div class="sub">High-value commercial opportunities</div></div></div>
+      <div class="ts"><table><thead><tr><th>Deal Name</th><th>Business Unit</th><th class="r">Value</th><th class="r">Stage</th><th>Status</th></tr></thead><tbody id="tb-deals"></tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 3: CUSTOMER & SERVICE ═══════════ -->
+<div class="pn" id="cs">
+  <div class="ks" id="k-cs"></div>
+
+  <div class="row r2">
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Net Promoter Score (NPS) Monthly Trend</h3><div class="sub">Trailing 12 months · <span class="tag">+19 pts vs Baseline</span></div></div></div>
+      <div class="cp"><svg class="sv" id="ch-npstrend" viewBox="0 0 560 140"></svg><div class="lg"><span><i style="background:var(--green)"></i>NPS Score</span><span><i style="background:var(--amber)"></i>Target (+40)</span></div></div>
+    </div>
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Customer Retention vs Churn</h3><div class="sub" id="sub-ret">Preserved RM 24.5M recurring deposits</div></div></div>
+      <div class="cp">
+        <div class="qc" style="--ac:var(--green);margin-bottom:10px;"><div class="qc-label">Retained Active Clients</div><div class="qc-val" id="qc-ret-val">94.2%</div><div class="qc-note">↑ 4.4 pts vs Pre-CRM Baseline</div></div>
+        <div class="qc" style="--ac:var(--red);margin-bottom:0;"><div class="qc-label">Annualized Attrition / Churn</div><div class="qc-val" id="qc-churn-val">5.8%</div><div class="qc-note" style="color:var(--red-t);">Reduced from 10.2%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row r3">
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>NPS Voice of Customer</h3><div class="sub">3-Segment breakdown</div></div></div>
+      <div class="cp" style="display:flex;align-items:center;gap:12px;"><svg class="sv" id="ch-npsmix" viewBox="0 0 110 110" style="width:90px;flex:none;"></svg><div class="lg" id="lg-npsmix" style="flex:1;flex-direction:column;border:none;padding:0;margin:0;"></div></div>
+    </div>
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>First Contact (FCR)</h3><div class="sub">Resolution by channel</div></div></div>
+      <div class="cp" style="display:flex;align-items:center;gap:12px;"><svg class="sv" id="ch-fcrmix" viewBox="0 0 110 110" style="width:90px;flex:none;"></svg><div class="lg" id="lg-fcrmix" style="flex:1;flex-direction:column;border:none;padding:0;margin:0;"></div></div>
+    </div>
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Complaint SLA</h3><div class="sub">Resolution within 24h</div></div></div>
+      <div class="cp" style="display:flex;align-items:center;gap:12px;"><svg class="sv" id="ch-slamix" viewBox="0 0 110 110" style="width:90px;flex:none;"></svg><div class="lg" id="lg-slamix" style="flex:1;flex-direction:column;border:none;padding:0;margin:0;"></div></div>
+    </div>
+  </div>
+
+  <div class="row r2">
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Service Turnaround Duration</h3><div class="sub">Average hours to resolve by month · <span class="tag">-69% faster</span></div></div></div>
+      <div class="cp"><svg class="sv" id="ch-restime" viewBox="0 0 560 140"></svg><div class="lg"><span><i style="background:var(--cyan)"></i>Avg Resolution Hours</span></div></div>
+    </div>
+    <div class="c">
+      <div class="ch"><div class="ch-left"><h3>Customer Experience by Business Unit</h3><div class="sub">Group CX scorecard</div></div></div>
+      <div class="ts"><table><thead><tr><th>Business Unit</th><th class="r">NPS</th><th class="r">Retention</th><th class="r">SLA %</th><th>Status</th></tr></thead><tbody id="tb-cx"></tbody></table></div>
+    </div>
+  </div>
+</div>
+
+</div></div>
+
+<script>
+(function(){
+"use strict";
+
+var RAW = {
+  periods: {
+    YTD: {
+      retail: { rev: 184.5, tgt: 172.0, base: 148.0, py: 162.0, pipe: 340.0, lds: 280000, won: 14560, nps: 39, ret: 93.8, fcr: 76.0, rms: 1100, adopt: 87.0 },
+      sme: { rev: 118.2, tgt: 108.0, base: 88.0, py: 99.5, pipe: 285.0, lds: 48000, won: 2496, nps: 42, ret: 95.4, fcr: 78.0, rms: 640, adopt: 87.0 },
+      corporate: { rev: 112.5, tgt: 118.0, base: 98.0, py: 104.0, pipe: 390.0, lds: 6200, won: 323, nps: 48, ret: 98.2, fcr: 80.0, rms: 220, adopt: 87.0 },
+      wealth: { rev: 51.8, tgt: 46.0, base: 36.0, py: 41.5, pipe: 165.0, lds: 18000, won: 936, nps: 52, ret: 97.4, fcr: 85.0, rms: 260, adopt: 92.0 },
+      service: { rev: 18.0, tgt: 16.0, base: 12.0, py: 14.0, pipe: 40.0, lds: 12000, won: 624, nps: 40, ret: 95.0, fcr: 78.0, rms: 280, adopt: 88.0 }
+    },
+    QTD: {
+      retail: { rev: 63.8, tgt: 59.0, base: 51.0, py: 56.0, pipe: 340.0, lds: 98000, won: 5096, nps: 40, ret: 94.0, fcr: 76.5, rms: 1100, adopt: 87.5 },
+      sme: { rev: 41.2, tgt: 37.5, base: 30.5, py: 34.5, pipe: 285.0, lds: 16800, won: 874, nps: 43, ret: 95.6, fcr: 78.5, rms: 640, adopt: 87.5 },
+      corporate: { rev: 38.5, tgt: 41.0, base: 34.0, py: 36.2, pipe: 390.0, lds: 2150, won: 112, nps: 49, ret: 98.4, fcr: 80.5, rms: 220, adopt: 87.5 },
+      wealth: { rev: 18.2, tgt: 16.0, base: 12.5, py: 14.4, pipe: 165.0, lds: 6300, won: 328, nps: 53, ret: 97.6, fcr: 85.5, rms: 260, adopt: 92.5 },
+      service: { rev: 6.3, tgt: 5.5, base: 4.2, py: 4.9, pipe: 40.0, lds: 4200, won: 218, nps: 41, ret: 95.2, fcr: 78.5, rms: 280, adopt: 88.5 }
+    },
+    MTD: {
+      retail: { rev: 22.1, tgt: 20.2, base: 17.5, py: 19.4, pipe: 340.0, lds: 34000, won: 1768, nps: 41, ret: 94.2, fcr: 77.0, rms: 1100, adopt: 88.0 },
+      sme: { rev: 14.4, tgt: 13.0, base: 10.5, py: 12.0, pipe: 285.0, lds: 5800, won: 302, nps: 44, ret: 95.8, fcr: 79.0, rms: 640, adopt: 88.0 },
+      corporate: { rev: 13.2, tgt: 14.2, base: 11.8, py: 12.5, pipe: 390.0, lds: 740, won: 38, nps: 50, ret: 98.5, fcr: 81.0, rms: 220, adopt: 88.0 },
+      wealth: { rev: 6.4, tgt: 5.6, base: 4.4, py: 5.0, pipe: 165.0, lds: 2200, won: 114, nps: 54, ret: 97.8, fcr: 86.0, rms: 260, adopt: 93.0 },
+      service: { rev: 2.2, tgt: 1.9, base: 1.5, py: 1.7, pipe: 40.0, lds: 1450, won: 75, nps: 42, ret: 95.4, fcr: 79.0, rms: 280, adopt: 89.0 }
+    }
+  },
+  regions: { all: 1.0, central: 0.36, north: 0.32, south: 0.23, east: 0.09, intl: 0.18 }
+};
+
+var state = { period: "YTD", bu: "all", reg: "all" };
+
+var ts=document.querySelectorAll(".t"),ps=document.querySelectorAll(".pn");
+ts.forEach(function(t){
+  t.addEventListener("click",function(){
+    ts.forEach(function(x){x.classList.remove("on");});
+    ps.forEach(function(p){p.classList.remove("on");});
+    t.classList.add("on");
+    document.getElementById(t.dataset.t).classList.add("on");
+  });
+});
+
+var fps = document.querySelectorAll(".fp");
+fps.forEach(function(btn){
+  btn.addEventListener("click", function(){
+    fps.forEach(function(b){b.classList.remove("on");});
+    btn.classList.add("on");
+    state.period = btn.dataset.p;
+    renderAll();
+  });
+});
+
+document.getElementById("f-bu").addEventListener("change", function(e){ state.bu = e.target.value; renderAll(); });
+document.getElementById("f-reg").addEventListener("change", function(e){ state.reg = e.target.value; renderAll(); });
+
+function ic(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+var I={
+  wal:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4"/><circle cx="16" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  usr:'<circle cx="8" cy="8" r="3"/><path d="M2 20a8 8 0 0 1 12 0"/><path d="M16 5a3 3 0 0 1 0 6"/><path d="M21 20a6 6 0 0 0-4-5"/>',
+  fun:'<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
+  clk:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/>',
+  cht:'<polyline points="22 7 13 16 9 12 2 19"/><polyline points="16 7 22 7 22 13"/>',
+  star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
+};
+
+function kpis(id,list){
+  document.getElementById(id).innerHTML=list.map(function(d){
+    var tr=d.up?'<span class="kc-trend up">↑ '+d.t+'</span>':'<span class="kc-trend dn">↓ '+d.t+'</span>';
+    return '<div class="kc" style="--ac:'+d.c+';--ib:'+d.b+'"><div class="kc-row"><div class="kc-icon">'+ic(I[d.k])+'</div><div class="kc-body"><div class="kc-label">'+d.l+'</div><div class="kc-val-row"><span class="kc-val">'+d.v+'</span>'+tr+'</div><div class="kc-cap">'+d.cap+'</div></div></div></div>';
+  }).join("");
+}
+
+function _area(id,vals,W,H,col,labels,multi,targetVal){
+  var el=document.getElementById(id);if(!el)return;
+  var max,min,pad=26,n=vals.length||(vals[0]||[]).length;
+  if(multi){var flat=[].concat.apply([],vals);max=Math.max.apply(null,flat)*1.12;min=Math.min.apply(null,flat)*.88;}
+  else{max=Math.max.apply(null,vals)*1.12;min=Math.min.apply(null,vals)*.88;}
+  if(targetVal && targetVal>max) max=targetVal*1.08;
+  var sx=(W-pad*2)/(n-1);
+  function X(i){return pad+i*sx;}function Y(v){return H-16-(v-min)/(max-min)*(H-28);}
+  var s='',uid=Math.random().toString(36).slice(2,6);
+  [.25,.5,.75].forEach(function(q){var y=14+q*(H-28);s+='<line x1="'+pad+'" y1="'+y+'" x2="'+(W-pad)+'" y2="'+y+'" stroke="#EEF0F3" stroke-dasharray="3,3"/>';});
+  if(targetVal){var ty=Y(targetVal);s+='<line x1="'+pad+'" y1="'+ty+'" x2="'+(W-pad)+'" y2="'+ty+'" stroke="#E5A100" stroke-width="1.5" stroke-dasharray="4,4"/>';}
+  if(labels)labels.forEach(function(l,i){s+='<text x="'+X(i)+'" y="'+(H-2)+'" text-anchor="middle" font-size="9" fill="#A0A6B1" font-family="Poppins">'+l+'</text>';});
+  function draw(vs,c,uidx){
+    var d="M"+X(0)+","+Y(vs[0]);for(var i=1;i<vs.length;i++)d+=" L"+X(i)+","+Y(vs[i]);
+    var fill=d+" L"+X(vs.length-1)+","+(H-16)+" L"+X(0)+","+(H-16)+" Z";
+    s+='<defs><linearGradient id="g'+uidx+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+c+'" stop-opacity=".25"/><stop offset="100%" stop-color="'+c+'" stop-opacity=".02"/></linearGradient></defs>';
+    s+='<path d="'+fill+'" fill="url(#g'+uidx+')"/><path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+    vs.forEach(function(v,i){s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3" fill="'+c+'" stroke="#fff" stroke-width="1.5" data-tip="'+v+'"/>';});
+  }
+  if(multi){var cols=col;vals.forEach(function(vs,j){draw(vs,cols[j],uid+j);});}
+  else draw(vals,col,uid);
+  el.innerHTML=s;
+}
+
+function _bar(id,data,W,H,grouped){
+  var el=document.getElementById(id);if(!el)return;
+  var pad=26,n=data.length,nc=grouped?data[0].vs.length:1,max=0;
+  if(grouped)data.forEach(function(d){d.vs.forEach(function(v){if(v>max)max=v;});});
+  else data.forEach(function(d){if(d.v>max)max=d.v;});
+  max*=1.12;var bw=Math.max(6,(W-pad*2)/n/(nc+.5)),gap=bw*.3,gw=bw*nc+gap*(nc-1),ox=(W-pad*2)/n,s='';
+  [.25,.5,.75,1].forEach(function(q){var y=H-16-q*(H-28);s+='<line x1="'+pad+'" y1="'+y+'" x2="'+(W-pad)+'" y2="'+y+'" stroke="#EEF0F3" stroke-dasharray="3,3"/>';});
+  data.forEach(function(d,i){
+    if(grouped){var bx=pad+i*ox+(ox-gw)/2;d.vs.forEach(function(v,j){var h=(H-28)*v/max,x=bx+j*(bw+gap),y=H-16-h;s+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" fill="'+d.cs[j]+'" rx="2" data-tip="'+d.n+': '+v+'"/>';});}
+    else{var h2=(H-28)*d.v/max,x2=pad+i*ox+(ox-bw)/2;s+='<rect x="'+x2+'" y="'+(H-16-h2)+'" width="'+bw+'" height="'+h2+'" fill="'+(d.c||"#3B7DDD")+'" rx="2" data-tip="'+d.n+': '+d.v+'"/>';}
+    s+='<text x="'+(pad+i*ox+ox/2)+'" y="'+(H-2)+'" text-anchor="middle" font-size="9" fill="#A0A6B1" font-family="Poppins">'+d.n+'</text>';
+  });
+  el.innerHTML=s;
+}
+
+function _donut(id,data,sz,l1,l2){
+  var el=document.getElementById(id);if(!el)return;
+  var cx=sz/2,cy=sz/2,r=sz*.36,sw=sz*.15,C=2*Math.PI*r,off=0,s="";
+  data.forEach(function(d){var len=d.v/100*C;s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+d.c+'" stroke-width="'+sw+'" stroke-dasharray="'+len.toFixed(2)+' '+(C-len).toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 '+cx+' '+cy+')" data-tip="'+d.n+': '+d.v+'%"/>';off+=len;});
+  if(l1)s+='<text x="'+cx+'" y="'+(cy+2)+'" text-anchor="middle" font-size="'+(sz*.11)+'" font-weight="700" fill="#2B3038" font-family="Poppins">'+l1+'</text>';
+  if(l2)s+='<text x="'+cx+'" y="'+(cy+sz*.12)+'" text-anchor="middle" font-size="'+(sz*.075)+'" fill="#7A808E" font-family="Poppins">'+l2+'</text>';
+  el.innerHTML=s;
+}
+
+function _gauge(id,val,col){
+  var L=Math.PI*46,off=L*(1-val/100);
+  document.getElementById(id).innerHTML='<svg viewBox="0 0 110 68" style="width:100px;display:block;margin:0 auto;"><path d="M8 60 A46 46 0 0 1 102 60" fill="none" stroke="#EEF0F3" stroke-width="9" stroke-linecap="round"/><path d="M8 60 A46 46 0 0 1 102 60" fill="none" stroke="'+col+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+L.toFixed(2)+'" stroke-dashoffset="'+off.toFixed(2)+'"/><text x="55" y="56" text-anchor="middle" font-size="16" font-weight="700" fill="#2B3038" font-family="Poppins">'+val+'%</text></svg>';
+}
+
+function _legend(id,data){var el=document.getElementById(id);if(!el)return;el.innerHTML=data.map(function(d){return '<span><i style="background:'+d.c+'"></i>'+d.n+' · '+d.v+'%</span>';}).join("");}
+
+var MO=["Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"];
+var DY=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+var BDG={ok:'<span class="bx ok">On Track</span>',warn:'<span class="bx warn">Watch</span>',bad:'<span class="bx bad">At Risk</span>'};
+
+function renderAll(){
+  var pData = RAW.periods[state.period] || RAW.periods.YTD;
+  var rf = RAW.regions[state.reg] || 1.0;
+  var buKeys = state.bu === "all" ? Object.keys(pData) : [state.bu];
+
+  var totRev = 0, totTgt = 0, totBase = 0, totPy = 0, totPipe = 0, totLds = 0, totWon = 0, totRms = 0;
+  var wNps = 0, wRet = 0, wFcr = 0, wAdopt = 0;
+
+  buKeys.forEach(function(k){
+    var d = pData[k]; if(!d) return;
+    totRev += d.rev * rf;
+    totTgt += d.tgt * rf;
+    totBase += d.base * rf;
+    totPy += d.py * rf;
+    totPipe += d.pipe * rf;
+    totLds += Math.round(d.lds * rf);
+    totWon += Math.round(d.won * rf);
+    totRms += Math.round(d.rms * rf);
+    wNps += d.nps * d.won;
+    wRet += d.ret * d.won;
+    wFcr += d.fcr * d.won;
+    wAdopt += d.adopt * d.rms;
+  });
+
+  var avgNps = totWon>0 ? Math.round(wNps / totWon) : 41;
+  var avgRet = totWon>0 ? (wRet / totWon).toFixed(1) : "94.2";
+  var avgFcr = totWon>0 ? (wFcr / totWon).toFixed(1) : "76.0";
+  var avgAdopt = totRms>0 ? Math.round(wAdopt / totRms) : 87;
+  var revAch = totTgt>0 ? ((totRev / totTgt)*100).toFixed(0) : "108";
+  var revGr = totPy>0 ? (((totRev - totPy)/totPy)*100).toFixed(1) : "8.2";
+  var revBaseGr = totBase>0 ? (((totRev - totBase)/totBase)*100).toFixed(1) : "12.4";
+  var prodRM = totRms>0 ? (totRev / totRms).toFixed(2) : "1.85";
+  var convRate = totLds>0 ? ((totWon / totLds)*100).toFixed(1) : "18.4";
+  var realisedTot = (totRev - totBase + 32.0*rf + 24.5*rf + 18.2*rf).toFixed(1);
+
+  // Tab 1: Overview Strip
+  kpis("k-ov",[
+    {l:"Revenue vs Plan",v:"RM "+totRev.toFixed(1)+"M",t:revGr+"% YoY",up:1,cap:revAch+"% of Target",c:"var(--blue)",b:"var(--blue-b)",k:"wal"},
+    {l:"Revenue Growth",v:"+"+revBaseGr+"%",t:"2.4 pts",up:1,cap:"Vs Pre-CRM Baseline",c:"var(--green)",b:"var(--green-b)",k:"cht"},
+    {l:"RM Productivity",v:"RM "+prodRM+"M",t:"18.0%",up:1,cap:"Per Active RM",c:"var(--amber)",b:"var(--amber-b)",k:"usr"},
+    {l:"CRM Adoption",v:avgAdopt+"%",t:"7 pts",up:1,cap:totRms+" Active Staff",c:"var(--ind)",b:"var(--ind-b)",k:"fun"}
+  ]);
+
+  // Tab 2: Growth Strip
+  kpis("k-gr",[
+    {l:"Total Commercial Pipeline",v:"RM "+totPipe.toFixed(0)+"M",t:"14.2%",up:1,cap:(totPipe/totRev).toFixed(2)+"x Coverage",c:"var(--blue)",b:"var(--blue-b)",k:"fun"},
+    {l:"Sales Conversion Rate",v:convRate+"%",t:"2.4 pts",up:1,cap:"Lead-to-Won Velocity",c:"var(--green)",b:"var(--green-b)",k:"cht"},
+    {l:"Opportunity Win Rate",v:"35.8%",t:"3.8 pts",up:1,cap:totWon+" Won Deals",c:"var(--cyan)",b:"var(--cyan-b)",k:"wal"},
+    {l:"Campaign Marketing ROI",v:"13.8x",t:"1.6x",up:1,cap:"Revenue Multiple",c:"var(--pink)",b:"var(--pink-b)",k:"star"}
+  ]);
+
+  // Tab 3: Customer Strip
+  kpis("k-cs",[
+    {l:"Net Promoter Score (NPS)",v:"+"+avgNps,t:"19 pts",up:1,cap:"Vs Target +40",c:"var(--green)",b:"var(--green-b)",k:"star"},
+    {l:"Customer Retention Rate",v:avgRet+"%",t:"4.4 pts",up:1,cap:"5.8% Low Churn",c:"var(--blue)",b:"var(--blue-b)",k:"usr"},
+    {l:"First Contact Resolution (FCR)",v:avgFcr+"%",t:"12 pts",up:1,cap:"Resolved at Touch 1",c:"var(--cyan)",b:"var(--cyan-b)",k:"clk"},
+    {l:"Avg Resolution Time",v:"3.8 hrs",t:"69%",up:0,cap:"Down from 12.5 hrs",c:"var(--ind)",b:"var(--ind-b)",k:"clk"}
+  ]);
+
+  document.getElementById("sub-revplan").innerHTML = 'Actual: <strong>RM '+totRev.toFixed(1)+'M</strong> · Target: <strong>RM '+totTgt.toFixed(1)+'M</strong> · <span class="tag">'+revAch+'% of Plan</span>';
+  document.getElementById("qglance-ov").innerHTML=[
+    {l:"Total Realised Value",v:"RM "+realisedTot+"M",n:"↑ Revenue, Capacity & Cost",c:"var(--green)"},
+    {l:"Net Promoter Score",v:"+"+avgNps+" NPS",n:"↑ +19 pts vs Baseline",c:"var(--blue)"},
+    {l:"Opportunity Win Rate",v:"35.8%",n:totWon+" Won Deals YTD",c:"var(--amber)"}
+  ].map(function(q){
+    return '<div class="qc" style="--ac:'+q.c+'"><div class="qc-label">'+q.l+'</div><div class="qc-val">'+q.v+'</div><div class="qc-note">'+q.n+'</div></div>';
+  }).join("");
+
+  var baseVals = [35.2,37.8,39.4,41.5,39.8,42.0,46.2,43.5,45.0,47.8,46.4,48.5];
+  var scaledVals = baseVals.map(function(v){ return Number((v * rf * (totRev/485.0)).toFixed(1)); });
+  _area("ch-revplan", scaledVals, 560, 140, "#3B7DDD", MO, false, Number((44.0*rf*(totTgt/450.0)).toFixed(1)));
+  document.getElementById("lg-revplan").innerHTML='<span><i style="background:#3B7DDD"></i>Actual Revenue (RM M)</span><span><i style="background:#E5A100"></i>Budget Plan Target</span>';
+
+  var revMix=[
+    {n:"Community Financial Services",v:38,c:"#3B7DDD"},
+    {n:"SME & Commercial",v:24,c:"#1AABB5"},
+    {n:"Global Banking (Corp)",v:23,c:"#1FAD6E"},
+    {n:"Wealth Management",v:11,c:"#E5A100"},
+    {n:"Customer Experience & Ops",v:4,c:"#6C6CF1"}
+  ];
+  _donut("ch-revpie",revMix,130,"RM "+totRev.toFixed(0)+"M","Total Revenue");
+  _legend("lg-rev",revMix);
+
+  _gauge("g1",91,"#3B7DDD");
+  _gauge("g2",avgNps>40?84:76,"#1FAD6E");
+  _gauge("g3",87,"#1AABB5");
+
+  document.getElementById("tb-alerts").innerHTML=[
+    {s:"Retail Personal Loan Conv Drop",b:"CFS Retail",i:"RM "+(6.8*rf).toFixed(1)+"M slippage",st:"warn"},
+    {s:"East Malaysia CRM Adoption",b:"SME East M'sia",i:"Mobile logging < 75%",st:"bad"},
+    {s:"Service Turnaround Accelerated",b:"Customer Ops",i:"Turnaround down to 3.8 hrs",st:"ok"}
+  ].map(function(a){
+    return '<tr><td style="font-weight:600;">'+a.s+'</td><td style="color:var(--mu);">'+a.b+'</td><td>'+a.i+'</td><td>'+BDG[a.st]+'</td></tr>';
+  }).join("");
+
+  var buNames = {
+    retail: "Community Financial Services",
+    sme: "SME & Commercial Banking",
+    corporate: "Global Banking (Corporate / IB)",
+    wealth: "Maybank Wealth Management",
+    service: "Customer Experience & Ops"
+  };
+  document.getElementById("tb-scorecard").innerHTML=Object.keys(pData).map(function(k){
+    var b = pData[k];
+    var r = (b.rev * rf).toFixed(1);
+    var vp = ((b.rev / b.tgt)*100).toFixed(0) + "%";
+    var st = (b.rev >= b.tgt) ? "ok" : "warn";
+    return '<tr><td style="font-weight:600;">'+buNames[k]+'</td><td class="r">RM '+r+'M</td><td class="r" style="color:var(--green-t);font-weight:700;">'+vp+'</td><td class="r">+'+b.nps+'</td><td class="r">'+b.adopt+'%</td><td>'+BDG[st]+'</td></tr>';
+  }).join("");
+
+  // Growth Tab Funnel & Charts
+  var fnlStages=[
+    {n:"1. Total Inbound Leads",v:totLds,sub:"Omnichannel Inbound"},
+    {n:"2. Qualified Leads",v:Math.round(totLds*0.42),sub:"42.0% Qualified"},
+    {n:"3. Sales Opportunities",v:Math.round(totLds*0.145),sub:"34.5% Opps"},
+    {n:"4. Won Commercial Deals",v:totWon,sub:"35.8% Win Rate"}
+  ];
+  document.getElementById("funnel-growth").innerHTML='<div class="funnel-container">'+fnlStages.map(function(st,i){
+    var max=fnlStages[0].v, w=Math.max(12,(st.v/max)*100);
+    var r=i>0?((st.v/fnlStages[i-1].v)*100).toFixed(1)+'%':'100%';
+    return '<div class="funnel-stage-row"><div class="funnel-meta"><div class="funnel-name">'+st.n+'</div><div class="funnel-count">'+st.v.toLocaleString()+'</div></div><div class="funnel-bar-track"><div class="funnel-bar-fill" style="width:'+w+'%;">'+st.sub+'</div></div><div class="funnel-rate">'+r+'</div></div>';
+  }).join("")+'</div>';
+
+  _bar("ch-bu-rev",[
+    {n:"CFS Retail",vs:[Number((pData.retail.rev*rf).toFixed(1)),Number((pData.retail.tgt*rf).toFixed(1))],cs:["#3B7DDD","#DB4D80"]},
+    {n:"SME & Comm",vs:[Number((pData.sme.rev*rf).toFixed(1)),Number((pData.sme.tgt*rf).toFixed(1))],cs:["#3B7DDD","#DB4D80"]},
+    {n:"Global Bank",vs:[Number((pData.corporate.rev*rf).toFixed(1)),Number((pData.corporate.tgt*rf).toFixed(1))],cs:["#3B7DDD","#DB4D80"]},
+    {n:"Wealth Mgmt",vs:[Number((pData.wealth.rev*rf).toFixed(1)),Number((pData.wealth.tgt*rf).toFixed(1))],cs:["#3B7DDD","#DB4D80"]},
+    {n:"Customer Ops",vs:[Number((pData.service.rev*rf).toFixed(1)),Number((pData.service.tgt*rf).toFixed(1))],cs:["#3B7DDD","#DB4D80"]}
+  ],560,140,true);
+
+  var pipeRisk=[{n:"Low Risk (High Prob)",v:65,c:"#1FAD6E"},{n:"Medium Risk",v:25,c:"#E5A100"},{n:"At Risk Slippage",v:10,c:"#D63B3B"}];
+  _donut("ch-piperisk",pipeRisk,110,"RM "+totPipe.toFixed(0)+"M","Pipeline");_legend("lg-piperisk",pipeRisk);
+
+  var grMix=[{n:"Cross-Sell (Wealth/FX)",v:38,c:"#3B7DDD"},{n:"New Logo Acquisitions",v:29,c:"#1FAD6E"},{n:"Recurring Base",v:33,c:"#6C6CF1"}];
+  _donut("ch-growthmix",grMix,110,"38%","Cross-Sell");_legend("lg-growthmix",grMix);
+
+  var mktgMix=[{n:"Digital Ads",v:45,c:"#1AABB5"},{n:"Events/Webinar",v:32,c:"#DB4D80"},{n:"Partner Inflow",v:23,c:"#E5A100"}];
+  _donut("ch-mktgmix",mktgMix,110,"13.8x","ROI");_legend("lg-mktgmix",mktgMix);
+
+  _area("ch-leadwk",[[Math.round(4200*rf),Math.round(5800*rf),Math.round(7100*rf),Math.round(6500*rf),Math.round(5200*rf),Math.round(3800*rf),Math.round(2900*rf)],[Math.round(2100*rf),Math.round(3200*rf),Math.round(3800*rf),Math.round(3100*rf),Math.round(2800*rf),Math.round(1900*rf),Math.round(1400*rf)]],560,140,["#3B7DDD","#DB4D80"],DY,true);
+  document.getElementById("lg-leadwk").innerHTML='<span><i style="background:#3B7DDD"></i>Digital Inbound Leads</span><span><i style="background:#DB4D80"></i>Branch Referrals</span>';
+
+  document.getElementById("tb-deals").innerHTML=[
+    {n:"Petronas Supply Chain Refinancing",bu:"Global Banking",v:"RM "+(45.0*rf).toFixed(1)+"M",s:"Propose",st:"ok"},
+    {n:"Sime Darby Plantation Working Cap",bu:"SME & Commercial",v:"RM "+(18.5*rf).toFixed(1)+"M",s:"Negotiate",st:"ok"},
+    {n:"Sunway Healthcare Equipment-i",bu:"SME & Commercial",v:"RM "+(12.0*rf).toFixed(1)+"M",s:"Credit Review",st:"warn"},
+    {n:"Top Glove Trade LC Expansion",bu:"Global Banking",v:"RM "+(28.0*rf).toFixed(1)+"M",s:"Proposal Sent",st:"ok"}
+  ].map(function(d){
+    return '<tr><td style="font-weight:600;">'+d.n+'</td><td style="color:var(--mu);">'+d.bu+'</td><td class="r"><strong>'+d.v+'</strong></td><td class="r">'+d.s+'</td><td>'+BDG[d.st]+'</td></tr>';
+  }).join("");
+
+  // Customer Tab Charts
+  _area("ch-npstrend",[34,35,36,37,38,38,39,40,40,41,41,avgNps],560,140,"#1FAD6E",MO,false,40);
+
+  var npsVoC=[{n:"Promoters (9-10)",v:45,c:"#1FAD6E"},{n:"Passives (7-8)",v:31,c:"#E5A100"},{n:"Detractors (0-6)",v:24,c:"#D63B3B"}];
+  _donut("ch-npsmix",npsVoC,110,"+"+avgNps,"NPS Score");_legend("lg-npsmix",npsVoC);
+
+  var fcrChan=[{n:"Mobile App",v:78,c:"#3B7DDD"},{n:"Web Banking",v:92,c:"#1AABB5"},{n:"WhatsApp",v:88,c:"#1FAD6E"},{n:"Contact Centre",v:68,c:"#E5A100"}];
+  _donut("ch-fcrmix",fcrChan,110,avgFcr+"%","Avg FCR");_legend("lg-fcrmix",fcrChan);
+
+  var slaMix=[{n:"Complaints < 24h",v:97,c:"#1FAD6E"},{n:"Complex Inquiries",v:92,c:"#3B7DDD"},{n:"Fraud Alerts",v:99,c:"#6C6CF1"}];
+  _donut("ch-slamix",slaMix,110,"97.2%","SLA Met");_legend("lg-slamix",slaMix);
+
+  _area("ch-restime",[12.5,11.2,9.8,8.4,7.2,6.5,5.8,5.0,4.6,4.2,4.0,3.8],560,140,"#1AABB5",MO);
+
+  document.getElementById("qc-ret-val").innerText = avgRet + "%";
+  document.getElementById("qc-churn-val").innerText = (100 - Number(avgRet)).toFixed(1) + "%";
+  document.getElementById("sub-ret").innerText = "Preserved RM " + (24.5*rf).toFixed(1) + "M recurring deposits";
+
+  document.getElementById("tb-cx").innerHTML=Object.keys(pData).map(function(k){
+    var c = pData[k];
+    return '<tr><td style="font-weight:600;">'+buNames[k]+'</td><td class="r" style="color:var(--green-t);font-weight:700;">+'+c.nps+'</td><td class="r">'+c.ret+'%</td><td class="r">97.2%</td><td>'+BDG["ok"]+'</td></tr>';
+  }).join("");
+}
+
+renderAll();
+
+})();
+</script>
+</body>
+</html>

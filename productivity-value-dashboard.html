@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Maybank CEO Command Centre | Productivity & Value Realisation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+:root{
+  --f:'Poppins',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --brand:#F5C518;--brand-d:#D4A800;
+  --page:#F4F5F7;--white:#fff;
+  --bdr:#E2E5EA;--bdr-l:#EEF0F3;
+  --ink:#2B3038;--ink2:#3D4550;--mu:#7A808E;--ey:#A0A6B1;
+  --blue:#3B7DDD;--blue-b:#EAF1FC;--blue-t:#2864B8;
+  --green:#1FAD6E;--green-b:#E6F7EF;--green-t:#168A57;
+  --amber:#E5A100;--amber-b:#FFF8E6;--amber-t:#B58000;
+  --red:#D63B3B;--red-b:#FCEAEA;--red-t:#B52D2D;
+  --ind:#6C6CF1;--ind-b:#F0F0FF;
+  --cyan:#1AABB5;--cyan-b:#E5F9FA;
+  --pink:#DB4D80;--pink-b:#FBE9EF;
+  --sh:0 1px 3px rgba(20,28,40,.04),0 2px 8px rgba(20,28,40,.06);
+  --sh2:0 4px 16px rgba(20,28,40,.1);
+  --r:12px;--rr:10px;--tr:.18s ease;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;min-height:100%;background:var(--page);}
+body{font-family:var(--f);font-size:13px;line-height:1.5;color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+/* === SHELL === */
+.shell{display:flex;flex-direction:column;min-height:100vh;}
+
+/* === HEADER TAB === */
+.tabs{background:var(--white);border-bottom:1px solid var(--bdr);display:flex;gap:0;padding:0 20px;flex:none;}
+.t{border:none;background:none;font-family:var(--f);font-size:13px;font-weight:700;color:var(--ink);
+   padding:12px 18px;border-bottom:2.5px solid var(--brand);margin-bottom:-1px;white-space:nowrap;}
+
+/* === FILTER BAR === */
+.f-bar{background:var(--white);border-bottom:1px solid var(--bdr);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;flex:none;}
+.f-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.f-pills{display:inline-flex;background:var(--page);padding:2px;border-radius:var(--rr);border:1px solid var(--bdr);}
+.fp{border:none;background:none;font-family:var(--f);font-size:11px;font-weight:600;color:var(--mu);padding:4px 12px;border-radius:var(--rr);cursor:pointer;transition:all var(--tr);}
+.fp.on{background:var(--white);color:var(--ink);font-weight:700;box-shadow:var(--sh);}
+.f-sel{font-family:var(--f);font-size:12px;font-weight:600;color:var(--ink);background:var(--white);border:1px solid var(--bdr);border-radius:var(--rr);padding:5px 12px;cursor:pointer;outline:none;transition:border-color var(--tr);}
+.f-sel:hover{border-color:var(--mu);}
+.f-meta{font-size:11px;color:var(--mu);}
+
+/* === BODY (FLEXIBLE NO INNER SCROLLBAR) === */
+.bd{flex:1;padding:16px 20px;}
+
+/* === KPI STRIP === */
+.ks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.kc{background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);
+    padding:14px 16px;position:relative;overflow:hidden;transition:box-shadow var(--tr),transform var(--tr);}
+.kc:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
+.kc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:0 2px 2px 0;background:var(--ac);}
+.kc-row{display:flex;align-items:flex-start;gap:12px;}
+.kc-icon{width:36px;height:36px;border-radius:var(--rr);display:grid;place-items:center;flex:none;background:var(--ib);color:var(--ac);}
+.kc-icon svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.kc-body{flex:1;min-width:0;}
+.kc-label{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;font-weight:600;line-height:1.3;margin-bottom:4px;}
+.kc-val-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+.kc-val{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.1;}
+.kc-trend{font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:2px;}
+.kc-trend.up{color:var(--green-t);}.kc-trend.dn{color:var(--red-t);}
+.kc-cap{font-size:10px;color:var(--ey);margin-top:4px;line-height:1.3;}
+
+/* === GRID === */
+.row{display:grid;gap:12px;margin-bottom:14px;}
+.r2{grid-template-columns:1fr 1fr;}
+
+/* === CARD === */
+.c{background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:box-shadow var(--tr);}
+.c:hover{box-shadow:var(--sh2);}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bdr-l);}
+.ch-left{flex:1;}
+.ch h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ch .sub{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:6px;}
+.ch .tag{font-size:10px;font-weight:700;color:var(--green-t);background:var(--green-b);padding:1px 6px;border-radius:8px;}
+.cp{padding:14px 16px;}
+
+/* === QUARTER / EXECUTIVE GLANCE CARDS === */
+.qc{background:var(--white);border:1px solid var(--bdr);border-radius:var(--rr);padding:14px 16px;position:relative;overflow:hidden;margin-bottom:8px;}
+.qc:last-child{margin-bottom:0;}
+.qc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:0 2px 2px 0;background:var(--ac,var(--blue));}
+.qc-label{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:3px;}
+.qc-val{font-size:20px;font-weight:700;color:var(--ink);line-height:1.15;}
+.qc-note{font-size:11px;color:var(--green-t);font-weight:600;margin-top:3px;}
+
+/* === CHART SVG === */
+svg.sv{width:100%;display:block;}
+
+/* === LEGEND === */
+.lg{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-top:8px;border-top:1px solid var(--bdr-l);}
+.lg span{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2);}
+.lg i{width:8px;height:8px;border-radius:2px;display:inline-block;}
+
+/* === TABLE === */
+.ts{overflow-x:auto;}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;}
+table th{position:sticky;top:0;background:var(--page);color:var(--mu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:8px 12px;border-bottom:1.5px solid var(--bdr);z-index:2;}
+table td{padding:9px 12px;border-bottom:1px solid var(--bdr-l);}
+table tbody tr{transition:background var(--tr);}
+table tbody tr:nth-child(even){background:#FAFBFC;}
+table tbody tr:hover{background:var(--blue-b);}
+td.r,th.r{text-align:right;}
+
+/* === PROGRESS BAR === */
+.pb{height:5px;background:var(--bdr-l);border-radius:3px;overflow:hidden;margin-top:3px;}
+.pb-fill{height:100%;border-radius:3px;}
+
+/* === TOOLTIP === */
+[data-tip]{position:relative;cursor:default;}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);
+  background:#1e2633;color:#fff;font-size:10px;padding:3px 8px;border-radius:5px;white-space:nowrap;z-index:99;pointer-events:none;}
+
+/* === RESPONSIVE === */
+@media(max-width:1100px){.ks{grid-template-columns:1fr 1fr;}.r2{grid-template-columns:1fr;}}
+@media(max-width:600px){.ks{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- TOP TAB HEADER -->
+<div class="tabs">
+  <div class="t">Productivity &amp; Value Realisation ★</div>
+</div>
+
+<!-- FILTER PARAMETERS BAR -->
+<div class="f-bar">
+  <div class="f-left">
+    <div class="f-pills" id="f-period">
+      <button class="fp" data-p="MTD">MTD</button>
+      <button class="fp" data-p="QTD">QTD</button>
+      <button class="fp on" data-p="YTD">YTD</button>
+    </div>
+    <select class="f-sel" id="f-bu">
+      <option value="all">Maybank Group (All BUs)</option>
+      <option value="retail">Community Financial Services (CFS)</option>
+      <option value="sme">SME &amp; Commercial Banking</option>
+      <option value="corporate">Global Banking (Corporate / IB)</option>
+      <option value="wealth">Maybank Wealth Management</option>
+      <option value="service">Customer Experience &amp; Ops</option>
+    </select>
+    <select class="f-sel" id="f-reg">
+      <option value="all">National &amp; ASEAN (All Regions)</option>
+      <option value="central">Klang Valley &amp; Central Region</option>
+      <option value="north">Northern Region (Penang / Perak)</option>
+      <option value="south">Southern Region (Johor / Melaka)</option>
+      <option value="east">East Malaysia (Sabah &amp; Sarawak)</option>
+      <option value="intl">Singapore &amp; ASEAN International</option>
+    </select>
+  </div>
+  <div class="f-meta">
+    Currency: <strong>MYR (RM)</strong> · Telemetry: <strong>Live Real-Time Sync</strong>
+  </div>
+</div>
+
+<div class="bd">
+
+  <!-- 4 PRIMARY KPI STRIP -->
+  <div class="ks" id="k-pv"></div>
+
+  <!-- ROW 1: PRODUCTIVITY GAINS & WORKFLOW ADOPTION -->
+  <div class="row r2">
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>Productivity Gains (Current vs Baseline)</h3>
+          <div class="sub">Measurable workforce acceleration · <span class="tag">+18% overall</span></div>
+        </div>
+      </div>
+      <div class="cp">
+        <div class="qc" style="--ac:var(--green);margin-bottom:8px;">
+          <div class="qc-label">RM Revenue Productivity</div>
+          <div class="qc-val" id="qc-prod-val">RM 1.85M / RM</div>
+          <div class="qc-note">↑ +18% vs RM 1.57M Baseline</div>
+        </div>
+        <div class="qc" style="--ac:var(--blue);margin-bottom:8px;">
+          <div class="qc-label">Commercial Deal Cycle</div>
+          <div class="qc-val">18.5 days</div>
+          <div class="qc-note">↓ -45% vs 34.0 days Baseline</div>
+        </div>
+        <div class="qc" style="--ac:var(--cyan);margin-bottom:0;">
+          <div class="qc-label">Service Turnaround Time</div>
+          <div class="qc-val">3.8 hours</div>
+          <div class="qc-note">↓ -69% vs 12.5 hrs Baseline</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>CRM Adoption Across Core Banking Workflows</h3>
+          <div class="sub">Adoption in real operational processes</div>
+        </div>
+      </div>
+      <div class="ts">
+        <table>
+          <thead>
+            <tr><th>Core Workflow</th><th class="r">Staff</th><th class="r">Adoption</th><th class="r">QoQ Growth</th><th>Progress</th></tr>
+          </thead>
+          <tbody id="tb-adopt"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: CORRELATION SCATTER CHARTS -->
+  <div class="row r2">
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>CRM Adoption vs Revenue Growth (%)</h3>
+          <div class="sub">Branch-level empirical correlation · <span class="tag">r = 0.88</span></div>
+        </div>
+      </div>
+      <div class="cp">
+        <svg class="sv" id="ch-cor-rev" viewBox="0 0 560 140"></svg>
+        <div class="lg">
+          <span><i style="background:var(--blue)"></i>Branch Data Points</span>
+          <span><i style="background:var(--green)"></i>Regression Trend</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="c">
+      <div class="ch">
+        <div class="ch-left">
+          <h3>CRM Adoption vs RM Productivity (RM M)</h3>
+          <div class="sub">Relationship Manager capacity unlock</div>
+        </div>
+      </div>
+      <div class="cp">
+        <svg class="sv" id="ch-cor-prod" viewBox="0 0 560 140"></svg>
+        <div class="lg">
+          <span><i style="background:var(--cyan)"></i>Branch Data Points</span>
+          <span><i style="background:var(--amber)"></i>Regression Trend</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: 4-PILLAR VALUE REALISATION MODEL -->
+  <div class="c" style="margin-bottom:14px;">
+    <div class="ch">
+      <div class="ch-left">
+        <h3>Maybank 4-Pillar Value Realisation Transformation Model</h3>
+        <div class="sub">Baseline → Current → Target → Realised Value · <span class="tag">84% Score</span></div>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:var(--blue-t);" id="val-tot-hdr">Total Realised Value: RM 143.2M</div>
+    </div>
+    <div class="ts">
+      <table>
+        <thead>
+          <tr>
+            <th>Pillar</th>
+            <th class="r">Score</th>
+            <th>Baseline</th>
+            <th>Current State</th>
+            <th>Target Plan</th>
+            <th class="r">Realised Value</th>
+            <th>Business Impact</th>
+          </tr>
+        </thead>
+        <tbody id="tb-pillars"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var RAW = {
+  periods: {
+    YTD: {
+      retail: { rev: 184.5, base: 148.0, rms: 1100 },
+      sme: { rev: 118.2, base: 88.0, rms: 640 },
+      corporate: { rev: 112.5, base: 98.0, rms: 220 },
+      wealth: { rev: 51.8, base: 36.0, rms: 260 },
+      service: { rev: 18.0, base: 12.0, rms: 280 }
+    },
+    QTD: {
+      retail: { rev: 63.8, base: 51.0, rms: 1100 },
+      sme: { rev: 41.2, base: 30.5, rms: 640 },
+      corporate: { rev: 38.5, base: 34.0, rms: 220 },
+      wealth: { rev: 18.2, base: 12.5, rms: 260 },
+      service: { rev: 6.3, base: 4.2, rms: 280 }
+    },
+    MTD: {
+      retail: { rev: 22.1, base: 17.5, rms: 1100 },
+      sme: { rev: 14.4, base: 10.5, rms: 640 },
+      corporate: { rev: 13.2, base: 11.8, rms: 220 },
+      wealth: { rev: 6.4, base: 4.4, rms: 260 },
+      service: { rev: 2.2, base: 1.5, rms: 280 }
+    }
+  },
+  regions: { all: 1.0, central: 0.36, north: 0.32, south: 0.23, east: 0.09, intl: 0.18 }
+};
+
+var state = { period: "YTD", bu: "all", reg: "all" };
+
+var fps = document.querySelectorAll(".fp");
+fps.forEach(function(btn){
+  btn.addEventListener("click", function(){
+    fps.forEach(function(b){b.classList.remove("on");});
+    btn.classList.add("on");
+    state.period = btn.dataset.p;
+    renderAll();
+  });
+});
+
+document.getElementById("f-bu").addEventListener("change", function(e){ state.bu = e.target.value; renderAll(); });
+document.getElementById("f-reg").addEventListener("change", function(e){ state.reg = e.target.value; renderAll(); });
+
+function ic(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+var I={
+  wal:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4"/><circle cx="16" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  usr:'<circle cx="8" cy="8" r="3"/><path d="M2 20a8 8 0 0 1 12 0"/><path d="M16 5a3 3 0 0 1 0 6"/><path d="M21 20a6 6 0 0 0-4-5"/>',
+  fun:'<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
+  clk:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/>',
+  star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
+};
+
+function kpis(id,list){
+  document.getElementById(id).innerHTML=list.map(function(d){
+    var tr=d.up?'<span class="kc-trend up">↑ '+d.t+'</span>':'<span class="kc-trend dn">↓ '+d.t+'</span>';
+    return '<div class="kc" style="--ac:'+d.c+';--ib:'+d.b+'"><div class="kc-row"><div class="kc-icon">'+ic(I[d.k])+'</div><div class="kc-body"><div class="kc-label">'+d.l+'</div><div class="kc-val-row"><span class="kc-val">'+d.v+'</span>'+tr+'</div><div class="kc-cap">'+d.cap+'</div></div></div></div>';
+  }).join("");
+}
+
+function _scatter(id,pts,colLine,colDot){
+  var el=document.getElementById(id);if(!el)return;
+  var W=560,H=140,pad=30,chartW=W-pad*2,chartH=H-28;
+  var s='<line x1="'+pad+'" y1="'+(H-16)+'" x2="'+(W-pad)+'" y2="'+(H-16)+'" stroke="#EEF0F3"/>';
+  s+='<line x1="'+pad+'" y1="'+(H-16-chartH*0.85)+'" x2="'+(W-pad)+'" y2="'+(H-16-chartH*0.15)+'" stroke="'+colLine+'" stroke-width="2" stroke-dasharray="4,4"/>';
+  pts.forEach(function(p){
+    var cx=pad+((p.x-70)/30)*chartW, cy=H-16-(p.y/25)*chartH;
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="4.5" fill="'+colDot+'" stroke="#fff" stroke-width="1.5" data-tip="'+p.n+': '+p.x+'% Adopt, '+p.y+' Output"/>';
+  });
+  s+='<text x="'+pad+'" y="'+(H-2)+'" font-size="9" fill="#A0A6B1">70% Adoption</text>';
+  s+='<text x="'+(W/2)+'" y="'+(H-2)+'" text-anchor="middle" font-size="9" fill="#A0A6B1">85% Benchmark</text>';
+  s+='<text x="'+(W-pad)+'" y="'+(H-2)+'" text-anchor="end" font-size="9" fill="#A0A6B1">100% Adoption</text>';
+  el.innerHTML=s;
+}
+
+function renderAll(){
+  var pData = RAW.periods[state.period] || RAW.periods.YTD;
+  var rf = RAW.regions[state.reg] || 1.0;
+  var buKeys = state.bu === "all" ? Object.keys(pData) : [state.bu];
+
+  var totRev = 0, totBase = 0, totRms = 0;
+  buKeys.forEach(function(k){
+    var d = pData[k]; if(!d) return;
+    totRev += d.rev * rf;
+    totBase += d.base * rf;
+    totRms += Math.round(d.rms * rf);
+  });
+
+  var prodRM = totRms>0 ? (totRev / totRms).toFixed(2) : "1.85";
+  var realisedTot = (totRev - totBase + 32.0*rf + 24.5*rf + 18.2*rf).toFixed(1);
+
+  kpis("k-pv",[
+    {l:"Transformation Realisation",v:"84%",t:"14 pts",up:1,cap:"Target: 90%",c:"var(--green)",b:"var(--green-b)",k:"star"},
+    {l:"Realised Transformation Value",v:"RM "+realisedTot+"M",t:"RM 22M",up:1,cap:"Across 4 Pillars",c:"var(--blue)",b:"var(--blue-b)",k:"wal"},
+    {l:"Deal Cycle Compression",v:"18.5 days",t:"45%",up:0,cap:"Down from 34.0 days",c:"var(--cyan)",b:"var(--cyan-b)",k:"clk"},
+    {l:"Core Process Digitization",v:"91.2%",t:"6.2 pts",up:1,cap:"Automated Workflows",c:"var(--ind)",b:"var(--ind-b)",k:"fun"}
+  ]);
+
+  document.getElementById("qc-prod-val").innerText = "RM " + prodRM + "M / RM";
+  document.getElementById("val-tot-hdr").innerText = "Total Realised Value: RM " + realisedTot + "M";
+
+  document.getElementById("tb-adopt").innerHTML=[
+    {w:"Credit Assessment & Underwriting",s:Math.round(1850*rf).toLocaleString(),p:94,g:"+8%",c:"#1FAD6E"},
+    {w:"Lead Management & RM Pipeline",s:Math.round(2240*rf).toLocaleString(),p:91,g:"+6%",c:"#3B7DDD"},
+    {w:"Customer Onboarding & KYC",s:Math.round(1420*rf).toLocaleString(),p:88,g:"+11%",c:"#E5A100"},
+    {w:"Service Case Escalation",s:Math.round(1190*rf).toLocaleString(),p:95,g:"+5%",c:"#6C6CF1"}
+  ].map(function(r){
+    return '<tr><td style="font-weight:600;">'+r.w+'</td><td class="r">'+r.s+'</td><td class="r">'+r.p+'%</td><td class="r" style="color:var(--green-t);font-weight:700;">'+r.g+'</td><td><div class="pb"><div class="pb-fill" style="width:'+r.p+'%;background:'+r.c+'"></div></div></td></tr>';
+  }).join("");
+
+  var bPts1=[{n:"Menara Maybank KL",x:94,y:16.4},{n:"Penang Beach St",x:92.4,y:14.8},{n:"Bangsar Premier",x:92,y:15.2},{n:"JB City Square",x:91,y:13.0},{n:"PJ Commercial",x:89.5,y:11.5},{n:"Kuching Main",x:78,y:5.4}];
+  var bPts2=[{n:"Menara Maybank KL",x:94,y:22.5},{n:"Penang Beach St",x:92.4,y:20.8},{n:"Bangsar Premier",x:92,y:19.5},{n:"JB City Square",x:91,y:18.2},{n:"PJ Commercial",x:89.5,y:16.5},{n:"Kuching Main",x:78,y:9.0}];
+  _scatter("ch-cor-rev",bPts1,"#1FAD6E","#3B7DDD");
+  _scatter("ch-cor-prod",bPts2,"#E5A100","#1AABB5");
+
+  document.getElementById("tb-pillars").innerHTML=[
+    {p:"1. Revenue Uplift",sc:91,b:"RM 0.0M",c:"+RM "+(totRev - totBase).toFixed(1)+"M",t:"+RM "+(75.0*rf).toFixed(1)+"M",v:"RM "+(totRev - totBase).toFixed(1)+"M",imp:"Sales conversion increased to 18.4% with cross-sell expansion."},
+    {p:"2. Productivity Capacity",sc:82,b:"RM 1.57M / RM",c:"RM "+prodRM+"M / RM",t:"RM 2.00M / RM",v:"RM "+(32.0*rf).toFixed(1)+"M",imp:"Deal cycle reduced by 45% (18.5 days vs 34.0 days baseline)."},
+    {p:"3. Customer Retention & NPS",sc:86,b:"NPS +22 | 89.8%",c:"NPS +41 | 94.2%",t:"NPS +45 | 95.0%",v:"RM "+(24.5*rf).toFixed(1)+"M",imp:"Churn reduced by 4.4pp, preserving high-yield deposit margins."},
+    {p:"4. Cost-to-Serve Efficiency",sc:78,b:"RM 7.80 / case",c:"RM 4.20 / case",t:"RM 3.80 / case",v:"RM "+(18.2*rf).toFixed(1)+"M",imp:"FCR improved to 76.0%, eliminating 185,000 repeat service queries."}
+  ].map(function(r){
+    return '<tr><td style="font-weight:600;">'+r.p+'</td><td class="r" style="color:var(--green-t);font-weight:700;">'+r.sc+'%</td><td>'+r.b+'</td><td style="font-weight:600;">'+r.c+'</td><td>'+r.t+'</td><td class="r" style="color:var(--blue-t);font-weight:700;font-size:13px;">'+r.v+'</td><td style="font-size:11px;color:var(--mu);">'+r.imp+'</td></tr>';
+  }).join("");
+}
+
+renderAll();
+
+})();
+</script>
+</body>
+</html>
